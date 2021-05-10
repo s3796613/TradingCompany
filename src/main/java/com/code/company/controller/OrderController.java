@@ -1,5 +1,4 @@
 package com.code.company.controller;
 
-public class CustomerController {
-
+public class OrderController {
 }
