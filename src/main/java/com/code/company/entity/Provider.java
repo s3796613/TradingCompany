@@ -1,0 +1,24 @@
+package com.code.company.entity;
+
+import javax.persistence.Entity;
+
+@Entity
+public class Provider extends BaseEntity {
+    private String name;
+    private String address;
+    private String email;
+    private String phone;
+    private String fax;
+
+    public Provider(String name, String address, String email, String phone, String fax) {
+        this.name = name;
+        this.address = address;
+        this.email = email;
+        this.phone = phone;
+        this.fax = fax;
+    }
+
+    public Provider() {
+
+    }
+}
