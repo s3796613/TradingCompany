@@ -9,6 +9,7 @@ public class Customer extends BaseEntity {
     private String email;
     private String phone;
     private String fax;
+//    private Staff contactPerson;
 
     public Customer(String name, String address, String email, String phone, String fax) {
         this.name = name;
