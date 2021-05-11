@@ -1,17 +1,15 @@
 package com.code.company.entity;
 
-import com.code.company.jparepository.CustomerRepository;
-import com.code.company.jparepository.ProviderRepository;
+import com.code.company.JPA.CustomerRepository;
+import com.code.company.JPA.ProviderRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.time.LocalDate;
-import java.time.Month;
 import java.util.List;
 
 @Configuration
-public class Commandline {
+public class LoadData {
     @Bean
     CommandLineRunner commandLineRunner(CustomerRepository repository) {
         return args -> {

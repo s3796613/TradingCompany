@@ -1,4 +1,4 @@
-package com.code.company.jparepository;
+package com.code.company.JPA;
 
 import com.code.company.entity.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
