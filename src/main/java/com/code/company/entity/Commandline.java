@@ -15,17 +15,17 @@ public class Commandline {
     @Bean
     CommandLineRunner commandLineRunner(CustomerRepository repository) {
         return args -> {
-            Customer victor = new Customer("12312","1231","123","3213","321");
+            Customer c1 = new Customer("Diago Trade","30 Silk Road","diagotrade@gmail.com","0937421321","123341245","Thang");
 
-            Customer june = new Customer("321321","321321","2313","321321","3123");
-            repository.saveAll(List.of(victor,june));
+            Customer c2 = new Customer("Jack's Whole Sale","42 Green Waverley","jackws@gmail.com","07936482","12346714","Jack");
+            repository.saveAll(List.of(c1,c2));
         };
     }
 
     @Bean
     CommandLineRunner commandLineRunner2(ProviderRepository pRepo) {
         return args -> {
-            Provider p1 = new Provider("231","3213","3213","3123","1233");
+            Provider p1 = new Provider("Lee Sin","12 Blair Rd","lee@gmail.com","0192384214","1233555","Lee");
             pRepo.saveAll(List.of(p1));
         };
     }
