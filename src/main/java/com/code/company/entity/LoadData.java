@@ -16,7 +16,9 @@ public class LoadData {
             Customer c1 = new Customer("Diago Trade","30 Silk Road","diagotrade@gmail.com","0937421321","123341245","Thang");
 
             Customer c2 = new Customer("Jack's Whole Sale","42 Green Waverley","jackws@gmail.com","07936482","12346714","Jack");
-            repository.saveAll(List.of(c1,c2));
+            Customer c3 = new Customer("Jack's Whole Sale","42 Green Waverley","jackws@gmail.com","07936482","12346714","Jack");
+            Customer c4 = new Customer("Jack's Whole Sale","42 Green Waverley","jackws@gmail.com","07936482","12346714","Jack");
+            repository.saveAll(List.of(c1,c2,c3,c4));
         };
     }
 

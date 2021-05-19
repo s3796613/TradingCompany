@@ -3,9 +3,12 @@ package com.code.company.service;
 import com.code.company.JPA.StaffRepository;
 import com.code.company.entity.Staff;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StaffService {
@@ -17,8 +20,8 @@ public class StaffService {
     }
 
 
-    public List<Staff> getAll() {
-        return staffRepository.findAll();
+    public Page<Staff> getAll(Optional<Integer> page) {
+        return staffRepository.findAll(PageRequest.of(page.orElse(0),2));
     }
 
     public Staff getById(Long id) {

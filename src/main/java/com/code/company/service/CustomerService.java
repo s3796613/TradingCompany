@@ -3,9 +3,12 @@ package com.code.company.service;
 import com.code.company.entity.Customer;
 import com.code.company.JPA.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CustomerService {
@@ -17,8 +20,8 @@ public class CustomerService {
     }
 
 
-    public List<Customer> getAll() {
-        return repository.findAll();
+    public Page<Customer> getAll(Optional<Integer> page) {
+        return repository.findAll(PageRequest.of(page.orElse(0),2));
     }
 
     public Customer getById(Long id) {
@@ -45,7 +48,7 @@ public class CustomerService {
         }).orElseThrow(() -> new Exception("Customer not found"));
     }
 
-    public List<Customer> find(String name, String address, String phone) {
+    public Page<Customer> find(Optional<Integer> page, String name, String address, String phone) {
         return null;
     }
 }

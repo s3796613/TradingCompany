@@ -3,9 +3,11 @@ package com.code.company.controller;
 import com.code.company.entity.Staff;
 import com.code.company.service.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("staff")
@@ -20,8 +22,8 @@ public class StaffController {
     //CRUD api
 
     @GetMapping
-    public List<Staff> getAll() {
-        return staffService.getAll();
+    public Page<Staff> getAll(@RequestParam Optional<Integer> page) {
+        return staffService.getAll(page);
     }
 
     @GetMapping(path = "{id}")

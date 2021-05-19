@@ -3,9 +3,11 @@ package com.code.company.controller;
 import com.code.company.entity.Customer;
 import com.code.company.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("customer")
@@ -20,8 +22,8 @@ public class CustomerController {
     //CRUD api
 
     @GetMapping
-    public List<Customer> getAll() {
-        return customerService.getAll();
+    public Page<Customer> getAll(@RequestParam Optional<Integer> page) {
+        return customerService.getAll(page);
     }
 
     @GetMapping(path = "{id}")
@@ -48,10 +50,11 @@ public class CustomerController {
     //Search api
 
     @GetMapping(path = "find")
-    public List<Customer> find(@RequestParam(required = false) String name,
+    public Page<Customer> find(@RequestParam Optional<Integer> page,
+                               @RequestParam(required = false) String name,
                                @RequestParam(required = false) String address,
                                @RequestParam(required = false) String phone) {
-        return customerService.find(name,address,phone);
+        return customerService.find(page,name,address,phone);
     }
 
 }
