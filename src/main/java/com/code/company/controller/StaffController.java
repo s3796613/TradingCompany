@@ -4,6 +4,7 @@ import com.code.company.entity.Staff;
 import com.code.company.service.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -48,5 +49,12 @@ public class StaffController {
     }
 
     //Search api
+    @GetMapping(path = "find")
+    public Page<Staff> find(@RequestParam(required = false) Optional<String> name,
+                            @RequestParam(required = false) Optional<String> address,
+                            @RequestParam(required = false) Optional<String> phone,
+                            Pageable pageable) {
+        return staffService.find(name,address,phone,pageable);
+    }
 
 }

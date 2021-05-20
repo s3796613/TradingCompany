@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -53,11 +54,11 @@ public class CustomerController {
 
     //Search api with pagination
     @GetMapping(path = "find")
-    public Page<Customer> find(@RequestParam Optional<Integer> page,
-                               @RequestParam(required = false) String name,
-                               @RequestParam(required = false) String address,
-                               @RequestParam(required = false) String phone) {
-        return customerService.find(page,name,address,phone);
+    public Page<Customer> find(@RequestParam(required = false) Optional<String> name,
+                               @RequestParam(required = false) Optional<String> address,
+                               @RequestParam(required = false) Optional<String> phone,
+                               Pageable pageable) {
+        return customerService.find(name,address,phone,pageable);
     }
 
 }

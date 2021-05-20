@@ -5,6 +5,7 @@ import com.code.company.entity.Staff;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -44,5 +45,18 @@ public class StaffService {
             staff.setPhone(newStaff.getPhone());
             return staffRepository.save(staff);
         }).orElseThrow(() -> new Exception("Staff not found!"));
+    }
+
+    public Page<Staff> find(Optional<String> name, Optional<String> address, Optional<String> phone, Pageable pageable) {
+        if (name.isPresent()) {
+            return staffRepository.findByName(name.orElse(""),pageable);
+        }
+        if (address.isPresent()) {
+            return staffRepository.findByAddress(address.orElse(""),pageable);
+        }
+        if (phone.isPresent()) {
+            return staffRepository.findByPhone(phone.orElse(""), pageable);
+        }
+        return staffRepository.findAll(pageable);
     }
 }

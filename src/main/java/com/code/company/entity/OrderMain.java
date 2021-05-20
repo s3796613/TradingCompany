@@ -3,7 +3,7 @@ package com.code.company.entity;
 import javax.persistence.*;
 
 @Entity
-public class Order_Main {
+public class OrderMain {
     @Id
     @GeneratedValue
     private Long id;
@@ -18,7 +18,7 @@ public class Order_Main {
     private Provider provider;
 
 
-    public Order_Main() {
+    public OrderMain() {
     }
 
     public Long getId() {

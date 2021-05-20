@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public class CustomerService {
 
 
     public Page<Customer> getAll(Optional<Integer> page) {
-        return repository.findAll(PageRequest.of(page.orElse(0),2));
+        return repository.findAll(PageRequest.of(page.orElse(0),20));
     }
 
     public Customer getById(Long id) {
@@ -51,7 +52,16 @@ public class CustomerService {
         }).orElseThrow(() -> new Exception("Customer not found"));
     }
 
-    public Page<Customer> find(Optional<Integer> page, String name, String address, String phone) {
-        return null;
+    public Page<Customer> find( Optional<String> name, Optional<String> address, Optional<String> phone, Pageable pageable) {
+        if (name.isPresent()) {
+            return repository.findByName(name.orElse(""),pageable);
+        }
+        if (address.isPresent()) {
+            return repository.findByAddress(address.orElse(""),pageable);
+        }
+        if (phone.isPresent()) {
+            return repository.findByPhone(phone.orElse(""), pageable);
+        }
+        return repository.findAll(pageable);
     }
 }
