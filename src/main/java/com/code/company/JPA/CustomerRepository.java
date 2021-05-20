@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
     Customer findCustomerById(Long id);
-    Page<Customer> findByName(String name, Pageable pageable);
-    Page<Customer> findByAddress(String address, Pageable pageable);
+    Page<Customer> findByNameContains(String name, Pageable pageable);
+    Page<Customer> findByAddressContains(String address, Pageable pageable);
     Page<Customer> findByPhone(String phone, Pageable pageable);
 }

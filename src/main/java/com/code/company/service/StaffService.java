@@ -49,10 +49,10 @@ public class StaffService {
 
     public Page<Staff> find(Optional<String> name, Optional<String> address, Optional<String> phone, Pageable pageable) {
         if (name.isPresent()) {
-            return staffRepository.findByName(name.orElse(""),pageable);
+            return staffRepository.findByNameContains(name.orElse(""),pageable);
         }
         if (address.isPresent()) {
-            return staffRepository.findByAddress(address.orElse(""),pageable);
+            return staffRepository.findByAddressContains(address.orElse(""),pageable);
         }
         if (phone.isPresent()) {
             return staffRepository.findByPhone(phone.orElse(""), pageable);

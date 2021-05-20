@@ -1,18 +1,25 @@
 package com.code.company.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
 @Entity
 public class ReceivingNote{
     @Id
-    @GeneratedValue
+    @SequenceGenerator(
+            name = "recv_note_generator"
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "recv_note_generator"
+    )
     private Long id;
     private LocalDate date;
-//    private Staff staff;
-//    private List<PackageDetail> receivingDetails;
+    @OneToOne
+    @JoinColumn(referencedColumnName = "id")
+    private Staff staff;
+    @ElementCollection
+    private List<PackageDetail> receivingDetails;
 
 }

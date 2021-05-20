@@ -54,10 +54,10 @@ public class CustomerService {
 
     public Page<Customer> find( Optional<String> name, Optional<String> address, Optional<String> phone, Pageable pageable) {
         if (name.isPresent()) {
-            return repository.findByName(name.orElse(""),pageable);
+            return repository.findByNameContains(name.orElse(""),pageable);
         }
         if (address.isPresent()) {
-            return repository.findByAddress(address.orElse(""),pageable);
+            return repository.findByAddressContains(address.orElse(""),pageable);
         }
         if (phone.isPresent()) {
             return repository.findByPhone(phone.orElse(""), pageable);

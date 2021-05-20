@@ -1,33 +1,40 @@
 package com.code.company.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Product{
     @Id
-    @GeneratedValue
+    @SequenceGenerator(
+            name = "product_sequence"
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "product_sequence"
+    )
     private Long id;
     private String name;
     private String model;
     private String brand;
     private String company;
-//    private Category category;
+    @OneToOne
+    @JoinColumn(referencedColumnName = "id")
+    private Category category;
     private String description;
     private Double price;
 
-    public Product(String name, String model, String brand, String company, String description, Double price) {
+    public Product() {
+
+    }
+
+    public Product(String name, String model, String brand, String company, Category category, String description, Double price) {
         this.name = name;
         this.model = model;
         this.brand = brand;
         this.company = company;
+        this.category = category;
         this.description = description;
         this.price = price;
-    }
-
-    public Product() {
-
     }
 
     public Long getId() {
@@ -84,5 +91,13 @@ public class Product{
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }

@@ -1,11 +1,20 @@
 package com.code.company.entity;
 
+import org.apache.catalina.LifecycleState;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class OrderMain {
     @Id
-    @GeneratedValue
+    @SequenceGenerator(
+            name = "order_sequence"
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "order_sequence"
+    )
     private Long id;
     private String text;
 
@@ -16,6 +25,9 @@ public class OrderMain {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(referencedColumnName = "id")
     private Provider provider;
+
+    @ElementCollection
+    private List<PackageDetail> packageDetails;
 
 
     public OrderMain() {
@@ -51,5 +63,13 @@ public class OrderMain {
 
     public void setProvider(Provider provider) {
         this.provider = provider;
+    }
+
+    public List<PackageDetail> getPackageDetails() {
+        return packageDetails;
+    }
+
+    public void setPackageDetails(List<PackageDetail> packageDetails) {
+        this.packageDetails = packageDetails;
     }
 }
