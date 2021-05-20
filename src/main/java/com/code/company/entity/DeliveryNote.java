@@ -22,4 +22,44 @@ public class DeliveryNote {
     @ElementCollection
     private List<PackageDetail> deliveryDetails;
 
+    public DeliveryNote() {
+    }
+
+    public DeliveryNote(LocalDate date, Staff staff, List<PackageDetail> deliveryDetails) {
+        this.date = date;
+        this.staff = staff;
+        this.deliveryDetails = deliveryDetails;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public Staff getStaff() {
+        return staff;
+    }
+
+    public void setStaff(Staff staff) {
+        this.staff = staff;
+    }
+
+    public List<PackageDetail> getDeliveryDetails() {
+        return deliveryDetails;
+    }
+
+    public void setDeliveryDetails(List<PackageDetail> deliveryDetails) {
+        this.deliveryDetails = deliveryDetails;
+    }
 }
