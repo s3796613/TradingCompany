@@ -33,6 +33,12 @@ public class OrderMain {
     public OrderMain() {
     }
 
+    public OrderMain(String text, Staff staff, Provider provider) {
+        this.text = text;
+        this.staff = staff;
+        this.provider = provider;
+    }
+
     public Long getId() {
         return id;
     }

@@ -1,14 +1,25 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version = "1.0" encoding = "UTF-8"?>
 
-<taglib xmlns="http://java.sun.com/xml/ns/javaee"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
-        version="2.1">
+<beans xmlns = "http://www.springframework.org/schema/beans"
+       xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation = "http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-    <tlib-version>1.0</tlib-version>
-    <short-name>myshortname</short-name>
-    <uri>http://mycompany.com</uri>
+    <bean id = "category" class = "com.code.company.entity.Category" scope="prototype">
+    </bean>
 
-    <!-- Invoke 'Generate' action to add tags or functions -->
+    <bean id = "staff" class = "com.code.company.entity.Staff" scope="prototype">
+    </bean>
 
-</taglib>
+    <bean id = "provider" class = "com.code.company.entity.Provider" scope="prototype">
+    </bean>
+
+    <bean id = "product" class = "com.code.company.entity.Product" scope="prototype">
+        <property name="category" ref="category"/>
+    </bean>
+
+    <bean id = "order" class = "com.code.company.entity.OrderMain" scope="prototype">
+        <property name="staff" ref="staff"/>
+        <property name="provider" ref="provider"/>
+    </bean>
+</beans>
