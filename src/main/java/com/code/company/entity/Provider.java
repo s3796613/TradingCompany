@@ -12,6 +12,7 @@ public class Provider {
             strategy = GenerationType.SEQUENCE,
             generator = "provider_sequence"
     )
+    @Column(name = "id")
     private Long id;
     private String name;
     private String address;

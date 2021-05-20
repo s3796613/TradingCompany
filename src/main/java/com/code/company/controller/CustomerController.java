@@ -2,6 +2,8 @@ package com.code.company.controller;
 
 import com.code.company.entity.Customer;
 import com.code.company.service.CustomerService;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +23,7 @@ public class CustomerController {
 
     //CRUD api
 
+    //Get all with pagination
     @GetMapping
     public Page<Customer> getAll(@RequestParam Optional<Integer> page) {
         return customerService.getAll(page);
@@ -47,8 +50,8 @@ public class CustomerController {
         customerService.update(id,newCustomer);
     }
 
-    //Search api
 
+    //Search api with pagination
     @GetMapping(path = "find")
     public Page<Customer> find(@RequestParam Optional<Integer> page,
                                @RequestParam(required = false) String name,

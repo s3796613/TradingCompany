@@ -2,6 +2,8 @@ package com.code.company.service;
 
 import com.code.company.entity.Customer;
 import com.code.company.JPA.CustomerRepository;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,6 +20,7 @@ public class CustomerService {
     public CustomerService(CustomerRepository repository) {
         this.repository = repository;
     }
+
 
 
     public Page<Customer> getAll(Optional<Integer> page) {

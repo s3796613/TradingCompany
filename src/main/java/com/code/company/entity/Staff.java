@@ -2,7 +2,8 @@ package com.code.company.entity;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "Staff")
+@Table(name = "staff")
 public class Staff{
     @Id
     @SequenceGenerator(
@@ -12,6 +13,7 @@ public class Staff{
             strategy = GenerationType.SEQUENCE,
             generator = "staff_sequence"
     )
+    @Column(name = "id")
     private Long id;
     private String name;
     private String address;
@@ -67,4 +69,6 @@ public class Staff{
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
+
 }

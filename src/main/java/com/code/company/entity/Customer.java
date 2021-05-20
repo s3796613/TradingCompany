@@ -1,5 +1,8 @@
 package com.code.company.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
@@ -21,7 +24,6 @@ public class Customer {
     private String contactPerson;
 
     public Customer() {
-
     }
 
 
