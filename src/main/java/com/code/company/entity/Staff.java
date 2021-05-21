@@ -1,6 +1,7 @@
 package com.code.company.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity(name = "Staff")
 @Table(name = "staff")
@@ -19,6 +20,8 @@ public class Staff{
     private String address;
     private String email;
     private String phone;
+    @OneToMany
+    private List<OrderMain> orderMainList;
 
     public Staff() {
     }

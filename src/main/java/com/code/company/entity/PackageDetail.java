@@ -15,6 +15,12 @@ public class PackageDetail {
     public PackageDetail() {
     }
 
+    public PackageDetail(Product product, int quantity) {
+        this.product = product;
+        this.quantity = quantity;
+        this.price = this.product.getPrice();
+    }
+
 
     public Product getProduct() {
         return product;

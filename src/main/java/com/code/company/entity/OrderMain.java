@@ -1,34 +1,37 @@
 package com.code.company.entity;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
 public class OrderMain {
     @Id
-    @SequenceGenerator(
-            name = "order_sequence"
-    )
     @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "order_sequence"
+            strategy = GenerationType.IDENTITY
     )
     private Long id;
-    private String text;
+    private LocalDate date;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(referencedColumnName = "id", nullable = false)
     private Staff staff;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(referencedColumnName = "id", nullable = false)
     private Provider provider;
 
     @ElementCollection
     private List<PackageDetail> packageDetails;
 
-
     public OrderMain() {
+    }
+
+    public OrderMain(LocalDate date, Staff staff, Provider provider, List<PackageDetail> packageDetails) {
+        this.date = date;
+        this.staff = staff;
+        this.provider = provider;
+        this.packageDetails = packageDetails;
     }
 
     public Long getId() {
@@ -39,13 +42,6 @@ public class OrderMain {
         this.id = id;
     }
 
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
 
     public Staff getStaff() {
         return staff;
@@ -69,5 +65,13 @@ public class OrderMain {
 
     public void setPackageDetails(List<PackageDetail> packageDetails) {
         this.packageDetails = packageDetails;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 }
