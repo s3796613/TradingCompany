@@ -5,20 +5,16 @@ import javax.persistence.*;
 @Entity
 public class Product{
     @Id
-    @SequenceGenerator(
-            name = "product_sequence"
-    )
     @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "product_sequence"
+            strategy = GenerationType.IDENTITY
     )
     private Long id;
     private String name;
     private String model;
     private String brand;
     private String company;
-    @OneToOne
-    @JoinColumn(referencedColumnName = "id")
+    @ManyToOne
+    @JoinColumn(referencedColumnName = "id", nullable = false)
     private Category category;
     private String description;
     private Double price;

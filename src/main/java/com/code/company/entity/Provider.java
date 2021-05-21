@@ -1,6 +1,7 @@
 package com.code.company.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Provider {
@@ -22,8 +23,10 @@ public class Provider {
     private String contactPerson;
 
     public Provider() {
-
     }
+
+    @OneToMany
+    private List<OrderMain> orderMain;
 
     public Provider(String name, String address, String email, String phone, String fax, String contactPerson) {
         this.name = name;

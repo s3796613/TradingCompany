@@ -1,6 +1,8 @@
 package com.code.company.entity;
 
+import com.code.company.JPA.CategoryRepository;
 import com.code.company.JPA.CustomerRepository;
+import com.code.company.JPA.ProductRepository;
 import com.code.company.JPA.ProviderRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -27,6 +29,20 @@ public class LoadData {
         return args -> {
             Provider p1 = new Provider("Lee Sin","12 Blair Rd","lee@gmail.com","0192384214","1233555","Lee");
             pRepo.saveAll(List.of(p1));
+        };
+    }
+
+    //product
+    @Bean
+    CommandLineRunner commandLineRunner3(ProductRepository productRepository, CategoryRepository categoryRepository) {
+        return args -> {
+            Category c1 = new Category("Food");
+            Category c2 = new Category("Smartphone");
+            categoryRepository.saveAll(List.of(c1,c2));
+
+            Product p1 = new Product();
+            p1.setCategory(c1);
+            productRepository.save(p1);
         };
     }
 }
