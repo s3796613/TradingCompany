@@ -1,25 +1,24 @@
 package com.code.company.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Category {
     @Id
-    @SequenceGenerator(
-            name = "category_sequence"
-    )
     @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "category_sequence"
+            strategy = GenerationType.IDENTITY
     )
     private Long id;
     private String name;
 
+    @OneToMany
+    private List<Product> products;
+
     public Category() {
     }
 
-    public Category(Long id, String name) {
-        this.id = id;
+    public Category(String name) {
         this.name = name;
     }
 
@@ -38,4 +37,5 @@ public class Category {
     public void setName(String name) {
         this.name = name;
     }
+
 }

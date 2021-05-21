@@ -1,7 +1,5 @@
 package com.code.company.entity;
 
-import org.apache.catalina.LifecycleState;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -19,11 +17,11 @@ public class OrderMain {
     private String text;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(referencedColumnName = "id")
+    @JoinColumn(referencedColumnName = "id", nullable = false)
     private Staff staff;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(referencedColumnName = "id", nullable = false)
     private Provider provider;
 
     @ElementCollection

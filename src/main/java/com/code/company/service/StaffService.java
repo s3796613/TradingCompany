@@ -22,7 +22,7 @@ public class StaffService {
 
 
     public Page<Staff> getAll(Optional<Integer> page) {
-        return staffRepository.findAll(PageRequest.of(page.orElse(0),2));
+        return staffRepository.findAll(PageRequest.of(page.orElse(0),20));
     }
 
     public Staff getById(Long id) {

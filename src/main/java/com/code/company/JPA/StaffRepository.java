@@ -12,4 +12,5 @@ public interface StaffRepository extends JpaRepository<Staff, Long> {
     Page<Staff> findByNameContains(String name, Pageable pageable);
     Page<Staff> findByAddressContains(String address, Pageable pageable);
     Page<Staff> findByPhone(String phone, Pageable pageable);
+
 }
