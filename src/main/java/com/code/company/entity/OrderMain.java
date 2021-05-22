@@ -27,8 +27,7 @@ public class OrderMain {
     public OrderMain() {
     }
 
-    public OrderMain(String text, Staff staff, Provider provider) {
-        this.text = text;
+    public OrderMain(Staff staff, Provider provider) {
         this.staff = staff;
         this.provider = provider;
     }

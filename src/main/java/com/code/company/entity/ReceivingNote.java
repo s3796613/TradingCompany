@@ -16,8 +16,8 @@ public class ReceivingNote{
     )
     private Long id;
     private LocalDate date;
-    @OneToOne
-    @JoinColumn(referencedColumnName = "id")
+    @ManyToOne
+    @JoinColumn(referencedColumnName = "id",nullable=false)
     private Staff staff;
 
     @OneToOne
