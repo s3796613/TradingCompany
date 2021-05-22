@@ -1,48 +1,78 @@
 package com.code.company.entity;
 
-import com.code.company.JPA.CategoryRepository;
-import com.code.company.JPA.CustomerRepository;
-import com.code.company.JPA.ProductRepository;
-import com.code.company.JPA.ProviderRepository;
+import com.code.company.JPA.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Configuration
 public class LoadData {
     @Bean
-    CommandLineRunner commandLineRunner(CustomerRepository repository) {
+    CommandLineRunner commandLineRunner2(ProviderRepository pRepo,
+                                         OrderRepository orderRepository,
+                                         StaffRepository staffRepository,
+                                         ProductRepository productRepository,
+                                         CategoryRepository categoryRepository,
+                                         CustomerRepository customerRepository) {
         return args -> {
+            //Load customer
             Customer c1 = new Customer("Diago Trade","30 Silk Road","diagotrade@gmail.com","0937421321","123341245","Thang");
-
             Customer c2 = new Customer("Jack's Whole Sale","42 Green Waverley","jackws@gmail.com","07936482","12346714","Jack");
-            Customer c3 = new Customer("Jack's Whole Sale","42 Green Waverley","jackws@gmail.com","07936482","12346714","Jack");
-            Customer c4 = new Customer("Jack's Whole Sale","42 Green Waverley","jackws@gmail.com","07936482","12346714","Jack");
-            repository.saveAll(List.of(c1,c2,c3,c4));
-        };
-    }
+            customerRepository.saveAll(List.of(c1,c2));
 
-    @Bean
-    CommandLineRunner commandLineRunner2(ProviderRepository pRepo) {
-        return args -> {
+            //Load provider
             Provider p1 = new Provider("Lee Sin","12 Blair Rd","lee@gmail.com","0192384214","1233555","Lee");
-            pRepo.saveAll(List.of(p1));
-        };
-    }
+            Provider p2 = new Provider("Victor Supplies","20 Nguyen Van Linh", "vsup@gmail.com", "02937741", "123456", "Victor");
+            pRepo.saveAll(List.of(p1,p2));
 
-    //product
-    @Bean
-    CommandLineRunner commandLineRunner3(ProductRepository productRepository, CategoryRepository categoryRepository) {
-        return args -> {
-            Category c1 = new Category("Food");
-            Category c2 = new Category("Smartphone");
-            categoryRepository.saveAll(List.of(c1,c2));
+            //Load staff
+            Staff s1 = new Staff("Jane","Distric 7","jane@hotmail.com","0928361");
+            Staff s2 = new Staff("Jack", "23 Hung Vuong","jack@edu.com", "092713");
+            staffRepository.saveAll(List.of(s1,s2));
 
-            Product p1 = new Product();
-            p1.setCategory(c1);
-            productRepository.save(p1);
+            //Load category
+            Category cat1 = new Category("Medicine");
+            Category cat2 = new Category("Food");
+            categoryRepository.saveAll(List.of(cat1,cat2));
+
+
+            //Load product
+            Product product1 = new Product(
+                    "Vitamin E",
+                    "12HAC",
+                    "Daily's",
+                    "DonyJ Corp",cat1,
+                    "Vitamin E for daily use",
+                    10.99);
+            Product product2 = new Product(
+                    "Chicken Sausage",
+                    "big",
+                    "ausFarm",
+                    "DonyJ Corp",cat2,
+                    "Can be used to make some simple dishes",
+                    1.99);
+            productRepository.saveAll(List.of(product1,product2));
+
+
+            //Load order
+
+            //Package details
+            PackageDetail packageDetail1 = new PackageDetail(product1,4);
+            PackageDetail packageDetail2 = new PackageDetail(product2, 2);
+            List<PackageDetail> packageDetailList = new ArrayList<>();
+            packageDetailList.add(packageDetail1);
+            packageDetailList.add(packageDetail2);
+
+            OrderMain o1 = new OrderMain();
+            o1.setProvider(p1);
+            o1.setDate(LocalDate.now());
+            o1.setStaff(s1);
+            o1.setPackageDetails(packageDetailList);
+            orderRepository.save(o1);
         };
     }
 }

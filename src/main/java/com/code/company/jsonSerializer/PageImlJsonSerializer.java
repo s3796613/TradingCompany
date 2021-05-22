@@ -15,6 +15,7 @@ public class PageImlJsonSerializer extends JsonSerializer<PageImpl<?>> {
         jsonGenerator.writeStartObject();
         jsonGenerator.writeObjectField("content", page.getContent());
         jsonGenerator.writeNumberField("totalPages", page.getTotalPages());
+        jsonGenerator.writeNumberField("totalElement",page.getTotalElements());
         jsonGenerator.writeNumberField("pageSize", page.getSize());
         jsonGenerator.writeEndObject();
     }
