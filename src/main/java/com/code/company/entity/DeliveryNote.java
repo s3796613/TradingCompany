@@ -2,7 +2,6 @@ package com.code.company.entity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
 public class DeliveryNote {
@@ -16,19 +15,22 @@ public class DeliveryNote {
     )
     private Long id;
     private LocalDate date;
+
     @OneToOne
     @JoinColumn(referencedColumnName = "id")
     private Staff staff;
-    @ElementCollection
-    private List<PackageDetail> deliveryDetails;
+
+    @OneToOne
+    @JoinColumn(name="id", nullable=false)
+    private OrderMain order;
 
     public DeliveryNote() {
     }
 
-    public DeliveryNote(LocalDate date, Staff staff, List<PackageDetail> deliveryDetails) {
+    public DeliveryNote(LocalDate date, Staff staff, OrderMain order) {
         this.date = date;
         this.staff = staff;
-        this.deliveryDetails = deliveryDetails;
+        this.order = order;
     }
 
     public Long getId() {
@@ -55,11 +57,4 @@ public class DeliveryNote {
         this.staff = staff;
     }
 
-    public List<PackageDetail> getDeliveryDetails() {
-        return deliveryDetails;
-    }
-
-    public void setDeliveryDetails(List<PackageDetail> deliveryDetails) {
-        this.deliveryDetails = deliveryDetails;
-    }
 }

@@ -2,23 +2,32 @@ package com.code.company.entity;
 
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Embeddable
 public class PackageDetail {
-    @OneToOne
-    @JoinColumn(referencedColumnName = "id")
+
+    @ManyToOne
+    @JoinColumn(referencedColumnName = "id",nullable=false)
     private Product product;
+
+    @ManyToOne
+    @JoinColumn(name="id", nullable=false)
+    private OrderMain order;
+
     private int quantity;
     private double price;
+
 
     public PackageDetail() {
     }
 
-    public PackageDetail(Product product, int quantity, double price) {
+    public PackageDetail(Product product, int quantity, double price,OrderMain order) {
         this.product = product;
         this.quantity = quantity;
         this.price = price;
+        this.order = order;
     }
 
     public Product getProduct() {
@@ -43,5 +52,13 @@ public class PackageDetail {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public OrderMain getOrder() {
+        return order;
+    }
+
+    public void setOrder(OrderMain order) {
+        this.order = order;
     }
 }

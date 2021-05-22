@@ -19,7 +19,9 @@ public class ReceivingNote{
     @OneToOne
     @JoinColumn(referencedColumnName = "id")
     private Staff staff;
-    @ElementCollection
-    private List<PackageDetail> receivingDetails;
+
+    @OneToOne
+    @JoinColumn(name="id", nullable=false)
+    private OrderMain order;
 
 }
