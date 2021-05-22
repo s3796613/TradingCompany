@@ -24,4 +24,44 @@ public class ReceivingNote{
     @JoinColumn(name="id", nullable=false)
     private OrderMain order;
 
+    public ReceivingNote() {
+    }
+
+    public ReceivingNote(LocalDate date, Staff staff, OrderMain order) {
+        this.date = date;
+        this.staff = staff;
+        this.order = order;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public Staff getStaff() {
+        return staff;
+    }
+
+    public void setStaff(Staff staff) {
+        this.staff = staff;
+    }
+
+    public OrderMain getOrder() {
+        return order;
+    }
+
+    public void setOrder(OrderMain order) {
+        this.order = order;
+    }
 }

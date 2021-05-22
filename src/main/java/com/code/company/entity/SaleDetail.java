@@ -16,11 +16,11 @@ public class SaleDetail {
     public SaleDetail() {
     }
 
-    public SaleDetail(Product product, int quantity, double price, double totalValue) {
+    public SaleDetail(Product product, int quantity, double price) {
         this.product = product;
         this.quantity = quantity;
         this.price = price;
-        this.totalValue = totalValue;
+        this.totalValue = price*quantity;
     }
 
     public Product getProduct() {

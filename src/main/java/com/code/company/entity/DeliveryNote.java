@@ -57,4 +57,11 @@ public class DeliveryNote {
         this.staff = staff;
     }
 
+    public OrderMain getOrder() {
+        return order;
+    }
+
+    public void setOrder(OrderMain order) {
+        this.order = order;
+    }
 }
