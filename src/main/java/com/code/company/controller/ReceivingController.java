@@ -48,8 +48,8 @@ public class ReceivingController {
     }
 
     @GetMapping(path = "find")
-    public Page<ReceivingNote> find (@RequestParam(required = false) String startDate,
-                                     @RequestParam(required = false) String endDate,
+    public Page<ReceivingNote> find (@RequestParam("startDate") String startDate,
+                                     @RequestParam("endDate") String endDate,
                                      Pageable pageable) throws Exception {
         return receivingService.find(startDate,endDate,pageable);
     }

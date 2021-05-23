@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +21,8 @@ public class StaffService {
         this.staffRepository = staffRepository;
     }
 
+
+    //CRUD
 
     public Page<Staff> getAll(Optional<Integer> page) {
         return staffRepository.findAll(PageRequest.of(page.orElse(0),20));
@@ -37,15 +40,25 @@ public class StaffService {
         staffRepository.save(staff);
     }
 
-    public void update(Long id, Staff newStaff) throws Exception {
-        staffRepository.findById(id).map(staff -> {
-            staff.setName(newStaff.getName());
-            staff.setAddress(newStaff.getAddress());
-            staff.setEmail(newStaff.getEmail());
-            staff.setPhone(newStaff.getPhone());
-            return staffRepository.save(staff);
-        }).orElseThrow(() -> new Exception("Staff not found!"));
+    @Transactional
+    public void update(Long id, String name, String address, String email, String phone) throws Exception {
+        Staff staff = staffRepository.findById(id).orElseThrow(() -> new Exception("Staff id not found"));
+        if (name != null && name.length() > 0) {
+            staff.setName(name);
+        }
+        if (address != null && address.length() > 0) {
+            staff.setAddress(address);
+        }
+        if (email != null && email.length() > 0) {
+            staff.setEmail(email);
+        }
+        if (phone != null && phone.length() > 0) {
+            staff.setPhone(phone);
+        }
+
     }
+
+    //Search api
 
     public Page<Staff> find(Optional<String> name, Optional<String> address, Optional<String> phone, Pageable pageable) {
         if (name.isPresent()) {
@@ -59,4 +72,6 @@ public class StaffService {
         }
         return staffRepository.findAll(pageable);
     }
+
+
 }

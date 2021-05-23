@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -17,6 +18,8 @@ public class ProviderService {
     public ProviderService(ProviderRepository providerRepository) {
         this.providerRepository = providerRepository;
     }
+
+    //CRUD
 
     public Page<Provider> findAll(Pageable pageable) {
         return providerRepository.findAll(pageable);
@@ -30,21 +33,36 @@ public class ProviderService {
         providerRepository.save(provider);
     }
 
-    public void update(Long id, Provider newProvider) throws Exception {
-        providerRepository.findById(id).map(provider -> {
-            provider.setName(newProvider.getName());
-            provider.setAddress(newProvider.getAddress());
-            provider.setEmail(newProvider.getEmail());
-            provider.setPhone(newProvider.getPhone());
-            provider.setFax(newProvider.getFax());
-            provider.setContactPerson(newProvider.getContactPerson());
-            return providerRepository.save(provider);
-        }).orElseThrow(() -> new Exception("Provider not found!"));
-    }
 
     public void delete(Long id) {
         providerRepository.deleteById(id);
     }
+
+
+    @Transactional
+    public void update(Long id, String name, String address, String email, String phone, String fax, String contactPerson) throws Exception {
+        Provider provider = providerRepository.findById(id).orElseThrow(() -> new Exception("Provider id not found"));
+        if (name != null && name.length() > 0) {
+            provider.setName(name);
+        }
+        if (address != null && address.length() > 0) {
+            provider.setAddress(address);
+        }
+        if (email != null && email.length() > 0) {
+            provider.setEmail(email);
+        }
+        if (phone != null && phone.length() > 0) {
+            provider.setPhone(phone);
+        }
+        if (fax != null && fax.length() > 0) {
+            provider.setFax(fax);
+        }
+        if (contactPerson != null && contactPerson.length() > 0) {
+            provider.setContactPerson(contactPerson);
+        }
+    }
+
+    //Search api
 
     public Page<Provider> find(Optional<String> name, Optional<String> address, Optional<String> phone, Pageable pageable) {
         if (name.isPresent()) {

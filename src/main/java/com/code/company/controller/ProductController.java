@@ -36,8 +36,14 @@ public class ProductController {
 
     @PutMapping(path = "{id}")
     public void update(@PathVariable("id") Long id,
-                       @RequestBody Product newProduct) throws Exception {
-        productService.update(id,newProduct);
+                       @RequestParam(required = false) String name,
+                       @RequestParam(required = false) String model,
+                       @RequestParam(required = false) String company,
+                       @RequestParam(required = false) String brand,
+                       @RequestParam(required = false) Long categoryID,
+                       @RequestParam(required = false) String description,
+                       @RequestParam(required = false) Double price) throws Exception {
+        productService.update(id,name,model,company,brand,categoryID,description,price);
     }
 
     @DeleteMapping(path = "{id}")

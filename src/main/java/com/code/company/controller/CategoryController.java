@@ -29,8 +29,8 @@ public class CategoryController {
 
     @PutMapping(path = "{id}")
     public void update(@PathVariable("id") Long id,
-                       @RequestBody Category newCategory) throws Exception {
-        categoryService.update(id,newCategory);
+                       @RequestParam("name") String name) throws Exception {
+        categoryService.update(id,name);
     }
 
     @DeleteMapping(path = "{id}")

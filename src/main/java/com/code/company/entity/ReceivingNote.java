@@ -16,6 +16,7 @@ public class ReceivingNote{
             generator = "recv_note_generator"
     )
     private Long id;
+    @Column(nullable = false)
     private LocalDate date;
     @ManyToOne
     @JoinColumn(referencedColumnName = "id")
@@ -77,8 +78,4 @@ public class ReceivingNote{
         this.receivingDetails = receivingDetails;
     }
 
-
-    public void setOrder(OrderMain order) {
-        this.order = order;
-    }
 }
