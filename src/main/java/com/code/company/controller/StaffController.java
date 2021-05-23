@@ -63,8 +63,9 @@ public class StaffController {
 
     @GetMapping(path = "{id}/sale")
     public Page<SaleInvoice> getStaffSale(@PathVariable("id") Long id,
-                                          Pageable pageable) {
-        return staffService.getStaffSale(id, pageable);
+                                          @RequestParam("start") String start,
+                                          @RequestParam("end") String end) {
+        return staffService.getStaffSale(id, start, end);
     }
 
 }

@@ -23,7 +23,7 @@ public interface StaffRepository extends JpaRepository<Staff, Long> {
 
 
     @Query("select i from SaleInvoice i where i.staffID =?1")
-    Page<SaleInvoice> getStaffSaleInvoice(Long staffID, Pageable pageable);
+    List<SaleInvoice> getStaffSaleInvoice(Long staffID);
 
     Optional<Staff> findStaffByEmail(String email);
     Optional<Staff> findStaffByPhone(String phone);
