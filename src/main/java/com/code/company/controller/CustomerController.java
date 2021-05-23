@@ -1,6 +1,7 @@
 package com.code.company.controller;
 
 import com.code.company.entity.Customer;
+import com.code.company.entity.SaleInvoice;
 import com.code.company.service.CustomerService;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -64,6 +65,14 @@ public class CustomerController {
                                @RequestParam(required = false) Optional<String> phone,
                                Pageable pageable) {
         return customerService.find(name,address,phone,pageable);
+    }
+
+    //Sale invoice by date
+    @GetMapping(path = "{id}/sale")
+    public Page<SaleInvoice> findSaleInvoice(@PathVariable("id") Long id,
+                                             @RequestParam("start") String start,
+                                             @RequestParam("end") String end) {
+        return customerService.findSaleInvoice(id,start,end);
     }
 
 }

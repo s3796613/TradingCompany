@@ -86,9 +86,10 @@ public class LoadData {
 
             orderRepository.saveAll(List.of(o1,o2));
 
-            //Load Receiving
+////            Load Receiving
 //            ReceivingNote r1 = new ReceivingNote();
 //            r1.setStaff(s2);
+//            r1.setOrderID(1L);
 //            r1.setDate(LocalDate.parse("2020-4-24"));
 //            receivingRepository.save(r1);
 

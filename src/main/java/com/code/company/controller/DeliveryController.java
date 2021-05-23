@@ -40,11 +40,18 @@ public class DeliveryController {
 
     @PutMapping("{id}")
     public void save(@PathVariable("id") Long id,
-                     @RequestBody(required = false) DeliveryNote updated) throws Exception {
+                     @RequestBody DeliveryNote updated) throws Exception {
         deliveryService.update(id,updated);
     }
     @DeleteMapping("{id}")
     public void delete(@PathVariable("id") Long id) {
         deliveryService.delete(id);
+    }
+
+    @GetMapping("/find")
+    Page<DeliveryNote> find(@RequestParam("start") String start,
+                            @RequestParam("end") String end,
+                            Pageable pageable) {
+        return deliveryService.find(start,end,pageable);
     }
 }

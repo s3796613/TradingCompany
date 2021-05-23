@@ -20,11 +20,6 @@ public class Staff{
     private String address;
     private String email;
     private String phone;
-    @OneToMany
-    private List<OrderMain> orderMainList;
-
-    @OneToMany
-    private List<ReceivingNote> receivingNoteList;
 
     public Staff() {
     }

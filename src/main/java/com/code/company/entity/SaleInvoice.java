@@ -16,8 +16,15 @@ public class SaleInvoice{
     )
     private Long id;
     private LocalDate date;
+    @Column(nullable = false)
+    private Long staffID;
+    @Column(nullable = false)
+    private Long deliveryID;
+    @Column(nullable = false)
+    private Long customerID;
     private String staffName;
     private String customerName;
+
     @ElementCollection
     private List<SaleDetail> saleDetails;
 
@@ -69,5 +76,29 @@ public class SaleInvoice{
 
     public void setSaleDetails(List<SaleDetail> saleDetails) {
         this.saleDetails = saleDetails;
+    }
+
+    public Long getStaffID() {
+        return staffID;
+    }
+
+    public void setStaffID(Long staffID) {
+        this.staffID = staffID;
+    }
+
+    public Long getDeliveryID() {
+        return deliveryID;
+    }
+
+    public void setDeliveryID(Long deliveryID) {
+        this.deliveryID = deliveryID;
+    }
+
+    public Long getCustomerID() {
+        return customerID;
+    }
+
+    public void setCustomerID(Long customerID) {
+        this.customerID = customerID;
     }
 }

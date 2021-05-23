@@ -1,14 +1,19 @@
 package com.code.company.service;
 
+import com.code.company.JPA.SaleInvoiceRepository;
 import com.code.company.JPA.StaffRepository;
+import com.code.company.entity.SaleInvoice;
 import com.code.company.entity.Staff;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -74,4 +79,19 @@ public class StaffService {
     }
 
 
+    //Get sales
+    public Page<SaleInvoice> getStaffSale(Long id, String startDate, String endDate) {
+        LocalDate start = LocalDate.parse(startDate);
+        LocalDate end = LocalDate.parse(endDate);
+        Pageable pageable = PageRequest.of(0,20);
+
+        List<SaleInvoice> invoices = staffRepository.getStaffSaleInvoice(id);
+        List<SaleInvoice> filtered = new ArrayList<>();
+        for (SaleInvoice invoice : invoices) {
+            if (invoice.getDate().isAfter(start) && invoice.getDate().isBefore(end)) {
+                filtered.add(invoice);
+            }
+        }
+        return new PageImpl<>(filtered,pageable,filtered.size());
+    }
 }

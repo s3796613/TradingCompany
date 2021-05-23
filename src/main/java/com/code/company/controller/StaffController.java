@@ -1,5 +1,6 @@
 package com.code.company.controller;
 
+import com.code.company.entity.SaleInvoice;
 import com.code.company.entity.Staff;
 import com.code.company.service.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +59,13 @@ public class StaffController {
                             @RequestParam(required = false) Optional<String> phone,
                             Pageable pageable) {
         return staffService.find(name,address,phone,pageable);
+    }
+
+    @GetMapping(path = "{id}/sale")
+    public Page<SaleInvoice> getStaffSale(@PathVariable("id") Long id,
+                                          @RequestParam("start") String start,
+                                          @RequestParam("end") String end) {
+        return staffService.getStaffSale(id, start, end);
     }
 
 }
