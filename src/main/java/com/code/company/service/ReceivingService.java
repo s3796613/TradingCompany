@@ -31,8 +31,6 @@ public class ReceivingService {
         return receivingRepository.findById(id).orElseThrow(() -> new Exception("ReceivingNote's id not found!"));
     }
 
-
-
     public String add(ReceivingNote receivingNote) throws Exception {
         receivingNote.setReceivingDetails(getOrderData(receivingNote.getOrderID()));
         receivingRepository.save(receivingNote);

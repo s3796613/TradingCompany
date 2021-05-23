@@ -77,8 +77,4 @@ public class ReceivingNote{
         this.receivingDetails = receivingDetails;
     }
 
-
-    public void setOrder(OrderMain order) {
-        this.order = order;
-    }
 }

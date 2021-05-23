@@ -15,7 +15,6 @@ import java.util.Optional;
 
 @Repository
 public interface ReceivingRepository extends JpaRepository<ReceivingNote, Long> {
-    Optional<ReceivingNote> findReceivingNoteByOrder(OrderMain order);
     @Query("select o from OrderMain o where o.id =?1")
     Optional<OrderMain> orderData(Long id);
 
