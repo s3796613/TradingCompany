@@ -24,6 +24,9 @@ public class ReceivingNote{
     @JoinColumn(name="id", nullable=false)
     private OrderMain order;
 
+    @ElementCollection
+    private List<PackageDetail> packageDetails;
+
     public ReceivingNote() {
     }
 

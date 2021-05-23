@@ -17,7 +17,8 @@ public class LoadData {
                                          StaffRepository staffRepository,
                                          ProductRepository productRepository,
                                          CategoryRepository categoryRepository,
-                                         CustomerRepository customerRepository) {
+                                         CustomerRepository customerRepository,
+                                         DeliveryRepository deliveryRepository) {
         return args -> {
             //Load customer
             Customer c1 = new Customer("Diago Trade","30 Silk Road","diagotrade@gmail.com","0937421321","123341245","Thang");
@@ -73,6 +74,12 @@ public class LoadData {
             o1.setStaff(s1);
             o1.setPackageDetails(packageDetailList);
             orderRepository.save(o1);
+
+            //Load Delivery
+
+            DeliveryNote d1 = new DeliveryNote(LocalDate.now(),s1);
+            d1.setPackageDetails(packageDetailList);
+            deliveryRepository.save(d1);
         };
     }
 }
