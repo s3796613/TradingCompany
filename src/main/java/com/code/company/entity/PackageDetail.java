@@ -2,15 +2,17 @@ package com.code.company.entity;
 
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 @Embeddable
 public class PackageDetail {
-    @OneToOne
+
+    @ManyToOne
     @JoinColumn(referencedColumnName = "id")
     private Product product;
     private int quantity;
     private double price;
+
 
     public PackageDetail() {
     }
@@ -18,7 +20,7 @@ public class PackageDetail {
     public PackageDetail(Product product, int quantity) {
         this.product = product;
         this.quantity = quantity;
-        this.price = this.product.getPrice();
+        this.price = product.getPrice();
     }
 
 

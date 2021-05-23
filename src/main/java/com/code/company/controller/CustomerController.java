@@ -47,8 +47,13 @@ public class CustomerController {
 
     @PutMapping(path = "{id}")
     public void update(@PathVariable("id") Long id,
-                       @RequestBody Customer newCustomer) throws Exception {
-        customerService.update(id,newCustomer);
+                       @RequestParam(required = false) String name,
+                       @RequestParam(required = false) String address,
+                       @RequestParam(required = false) String email,
+                       @RequestParam(required = false) String phone,
+                       @RequestParam(required = false) String fax,
+                       @RequestParam(required = false) String contactPerson) throws Exception {
+        customerService.update(id,name,address,email,phone,fax,contactPerson);
     }
 
 

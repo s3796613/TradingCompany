@@ -23,6 +23,9 @@ public class Staff{
     @OneToMany
     private List<OrderMain> orderMainList;
 
+    @OneToMany
+    private List<ReceivingNote> receivingNoteList;
+
     public Staff() {
     }
 

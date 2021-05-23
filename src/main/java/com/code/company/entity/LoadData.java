@@ -67,12 +67,22 @@ public class LoadData {
             packageDetailList.add(packageDetail1);
             packageDetailList.add(packageDetail2);
 
+            List<PackageDetail> packageDetailList2 = new ArrayList<>();
+            packageDetailList2.add(packageDetail2);
+
             OrderMain o1 = new OrderMain();
             o1.setProvider(p1);
             o1.setDate(LocalDate.now());
             o1.setStaff(s1);
             o1.setPackageDetails(packageDetailList);
-            orderRepository.save(o1);
+
+            OrderMain o2 = new OrderMain();
+            o2.setProvider(p2);
+            o2.setDate(LocalDate.now());
+            o2.setStaff(s2);
+            o2.setPackageDetails(packageDetailList2);
+
+            orderRepository.saveAll(List.of(o1,o2));
         };
     }
 }
