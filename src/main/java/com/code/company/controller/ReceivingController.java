@@ -42,5 +42,17 @@ public class ReceivingController {
         receivingService.update(id,staffID,orderID,date);
     }
 
+    @DeleteMapping(path = "{id}")
+    public void delete(@PathVariable("id") Long id) {
+        receivingService.delete(id);
+    }
+
+    @GetMapping(path = "find")
+    public Page<ReceivingNote> find (@RequestParam(required = false) String startDate,
+                                     @RequestParam(required = false) String endDate,
+                                     Pageable pageable) throws Exception {
+        return receivingService.find(startDate,endDate,pageable);
+    }
+
 
 }

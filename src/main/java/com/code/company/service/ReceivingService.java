@@ -75,4 +75,14 @@ public class ReceivingService {
         }
         return newData;
     }
+
+    public void delete(Long id) {
+        receivingRepository.deleteById(id);
+    }
+
+    public Page<ReceivingNote> find(String sDate, String eDate, Pageable pageable ) throws Exception {
+        LocalDate startDate = LocalDate.parse(sDate);
+        LocalDate endDate = LocalDate.parse(eDate);
+        return receivingRepository.findByDateBetween(startDate,endDate,pageable).orElseThrow(() -> new Exception("Didnot find any note"));
+    }
 }
