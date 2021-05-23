@@ -36,12 +36,20 @@ public class SaleInvoiceController {
     public void update(@PathVariable("id") Long id,
                        @RequestParam(required = false) Long staffID,
                        @RequestParam(required = false) Long deliveryID,
+                       @RequestParam(required = false) Long customerID,
                        @RequestParam(required = false) String date) throws Exception {
-        saleInvoiceService.update(id,staffID,deliveryID,date);
+        saleInvoiceService.update(id,staffID,deliveryID,customerID,date);
     }
 
     @DeleteMapping(path = "{id}")
-    public void delete(@RequestParam("id") Long id) {
+    public void delete(@PathVariable("id") Long id) {
         saleInvoiceService.delete(id);
+    }
+
+    @GetMapping(path = "find")
+    public Page<SaleInvoice> find(@RequestParam("star") String start,
+                                  @RequestParam("end") String end,
+                                  Pageable pageable) {
+        return saleInvoiceService.find(start,end,pageable);
     }
 }

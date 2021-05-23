@@ -21,6 +21,7 @@ public class CustomerService {
     }
 
 
+    //crud
 
     public Page<Customer> getAll(Optional<Integer> page) {
         return repository.findAll(PageRequest.of(page.orElse(0),20));
@@ -38,19 +39,6 @@ public class CustomerService {
         repository.save(customer);
     }
 
-
-    public Page<Customer> find( Optional<String> name, Optional<String> address, Optional<String> phone, Pageable pageable) {
-        if (name.isPresent()) {
-            return repository.findByNameContains(name.orElse(""),pageable);
-        }
-        if (address.isPresent()) {
-            return repository.findByAddressContains(address.orElse(""),pageable);
-        }
-        if (phone.isPresent()) {
-            return repository.findByPhone(phone.orElse(""), pageable);
-        }
-        return repository.findAll(pageable);
-    }
 
     @Transactional
     public void update(Long id, String name, String address, String email, String phone, String fax, String contactPerson) throws Exception {
@@ -73,5 +61,19 @@ public class CustomerService {
         if (contactPerson != null && contactPerson.length() > 0) {
             customer.setContactPerson(contactPerson);
         }
+    }
+
+    //search api
+    public Page<Customer> find( Optional<String> name, Optional<String> address, Optional<String> phone, Pageable pageable) {
+        if (name.isPresent()) {
+            return repository.findByNameContains(name.orElse(""),pageable);
+        }
+        if (address.isPresent()) {
+            return repository.findByAddressContains(address.orElse(""),pageable);
+        }
+        if (phone.isPresent()) {
+            return repository.findByPhone(phone.orElse(""), pageable);
+        }
+        return repository.findAll(pageable);
     }
 }

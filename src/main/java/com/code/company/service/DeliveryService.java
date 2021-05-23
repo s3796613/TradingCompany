@@ -48,6 +48,14 @@ public class DeliveryService {
         deliveryRepository.deleteById(id);
     }
 
+
     //Search api
+    public Page<DeliveryNote> find(String start, String end, Pageable pageable) {
+        LocalDate startDate = LocalDate.parse(start);
+        LocalDate endDate = LocalDate.parse(end);
+        return deliveryRepository.findByDateBetween(startDate,endDate,pageable);
+    }
+
+
 
 }

@@ -47,4 +47,11 @@ public class DeliveryController {
     public void delete(@PathVariable("id") Long id) {
         deliveryService.delete(id);
     }
+
+    @GetMapping("/find")
+    Page<DeliveryNote> find(@RequestParam("start") String start,
+                            @RequestParam("end") String end,
+                            Pageable pageable) {
+        return deliveryService.find(start,end,pageable);
+    }
 }

@@ -31,8 +31,11 @@ public class SaleInvoiceService {
         return saleInvoiceRepository.findById(id).orElseThrow(() -> new Exception("Sale invoice id not found!"));
     }
 
+    @Transactional
     public String add(SaleInvoice saleInvoice) throws Exception {
         Staff staff =saleInvoiceRepository.getStaffByID(saleInvoice.getStaffID()).orElseThrow(() -> new Exception("Staff id not found"));
+        Customer customer = saleInvoiceRepository.getCustomerByID(saleInvoice.getCustomerID()).orElseThrow(() -> new Exception("Customer id not found"));
+        saleInvoice.setCustomerName(customer.getName());
         saleInvoice.setStaffName(staff.getName());
         saleInvoice.setSaleDetails(getDeliveryData(saleInvoice.getDeliveryID()));
         saleInvoiceRepository.save(saleInvoice);
@@ -44,7 +47,7 @@ public class SaleInvoiceService {
     }
 
     @Transactional
-    public void update(Long id, Long staffID, Long deliveryID, String date) throws Exception {
+    public void update(Long id, Long staffID, Long deliveryID, Long customerID, String date) throws Exception {
         SaleInvoice saleInvoice = saleInvoiceRepository.findById(id).orElseThrow(() -> new Exception("Sale invoice id not found"));
         if (staffID != null && staffID > 0) {
             Staff staff = saleInvoiceRepository.getStaffByID(staffID).orElseThrow(() -> new Exception("Staff id not found"));
@@ -54,6 +57,11 @@ public class SaleInvoiceService {
         if (deliveryID != null && deliveryID > 0) {
             saleInvoice.setSaleDetails(getDeliveryData(deliveryID));
             saleInvoice.setDeliveryID(deliveryID);
+        }
+        if (customerID != null && customerID > 0) {
+            Customer customer = saleInvoiceRepository.getCustomerByID(customerID).orElseThrow(() -> new Exception("Customer id not found"));
+            saleInvoice.setCustomerID(customer.getId());
+            saleInvoice.setCustomerName(customer.getName());
         }
         if (date != null && date.length() > 0) {
             saleInvoice.setDate(LocalDate.parse(date));
@@ -79,6 +87,13 @@ public class SaleInvoiceService {
     }
 
     //Search api
+    public Page<SaleInvoice> find(String start, String end, Pageable pageable) {
+        LocalDate startD = LocalDate.parse(start);
+        LocalDate endD = LocalDate.parse(end);
+        return saleInvoiceRepository.findByDateBetween(startD,endD,pageable);
+    }
+
+
 
 
 }

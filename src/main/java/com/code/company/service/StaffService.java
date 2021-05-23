@@ -75,6 +75,7 @@ public class StaffService {
     }
 
 
+    //Get sales
     public Page<SaleInvoice> getStaffSale(Long id, Pageable pageable) {
         return staffRepository.getStaffSaleInvoice(id, pageable);
     }

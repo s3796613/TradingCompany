@@ -20,6 +20,8 @@ public class SaleInvoice{
     private Long staffID;
     @Column(nullable = false)
     private Long deliveryID;
+    @Column(nullable = false)
+    private Long customerID;
     private String staffName;
     private String customerName;
 
@@ -90,5 +92,13 @@ public class SaleInvoice{
 
     public void setDeliveryID(Long deliveryID) {
         this.deliveryID = deliveryID;
+    }
+
+    public Long getCustomerID() {
+        return customerID;
+    }
+
+    public void setCustomerID(Long customerID) {
+        this.customerID = customerID;
     }
 }

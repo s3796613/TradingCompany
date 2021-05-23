@@ -23,6 +23,7 @@ public class ReceivingService {
         this.receivingRepository = receivingRepository;
     }
 
+    //CRUD
     public Page<ReceivingNote> findAll(Pageable pageable) {
         return receivingRepository.findAll(pageable);
     }
@@ -36,6 +37,10 @@ public class ReceivingService {
         receivingNote.setReceivingDetails(getOrderData(receivingNote.getOrderID()));
         receivingRepository.save(receivingNote);
         return "Create receiving note successfully with id " + receivingNote.getId() + ", orderID: " + receivingNote.getOrderID();
+    }
+
+    public void delete(Long id) {
+        receivingRepository.deleteById(id);
     }
 
     @Transactional
@@ -72,10 +77,9 @@ public class ReceivingService {
         return newData;
     }
 
-    public void delete(Long id) {
-        receivingRepository.deleteById(id);
-    }
 
+
+    //search api
     public Page<ReceivingNote> find(String sDate, String eDate, Pageable pageable ) throws Exception {
         LocalDate startDate = LocalDate.parse(sDate);
         LocalDate endDate = LocalDate.parse(eDate);

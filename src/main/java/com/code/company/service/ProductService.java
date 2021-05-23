@@ -17,6 +17,7 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
+    //CRUD
     public Page<Product> findAll(Pageable pageable) {
         return productRepository.findAll(pageable);
     }
@@ -59,4 +60,5 @@ public class ProductService {
             product.setPrice(price);
         }
     }
+
 }
