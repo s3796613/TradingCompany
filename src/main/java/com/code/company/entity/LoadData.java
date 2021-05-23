@@ -18,7 +18,8 @@ public class LoadData {
                                          ProductRepository productRepository,
                                          CategoryRepository categoryRepository,
                                          CustomerRepository customerRepository,
-                                         DeliveryRepository deliveryRepository) {
+                                         DeliveryRepository deliveryRepository,
+                                         ReceivingRepository receivingRepository) {
         return args -> {
             //Load customer
             Customer c1 = new Customer("Diago Trade","30 Silk Road","diagotrade@gmail.com","0937421321","123341245","Thang");
@@ -76,13 +77,6 @@ public class LoadData {
             o1.setDate(LocalDate.now());
             o1.setStaff(s1);
             o1.setPackageDetails(packageDetailList);
-            orderRepository.save(o1);
-
-            //Load Delivery
-
-            DeliveryNote d1 = new DeliveryNote(LocalDate.now(),s1);
-            d1.setPackageDetails(packageDetailList);
-            deliveryRepository.save(d1);
 
             OrderMain o2 = new OrderMain();
             o2.setProvider(p2);
@@ -91,6 +85,24 @@ public class LoadData {
             o2.setPackageDetails(packageDetailList2);
 
             orderRepository.saveAll(List.of(o1,o2));
+
+            //Load Receiving
+//            ReceivingNote r1 = new ReceivingNote();
+//            r1.setStaff(s2);
+//            r1.setDate(LocalDate.parse("2020-4-24"));
+//            receivingRepository.save(r1);
+
+
+            //Load Delivery
+
+            DeliveryNote d1 = new DeliveryNote(LocalDate.now(),s1);
+            d1.setPackageDetails(packageDetailList);
+            deliveryRepository.save(d1);
+
+
+
+
+
         };
     }
 }

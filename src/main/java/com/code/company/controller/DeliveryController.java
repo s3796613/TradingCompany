@@ -5,8 +5,8 @@ import com.code.company.entity.PackageDetail;
 import com.code.company.entity.ReceivingNote;
 import com.code.company.service.DeliveryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -24,9 +24,10 @@ public class DeliveryController {
     }
 
     @GetMapping
-    public DeliveryNote getAll(Pageable pageable) throws Exception {
-        return (DeliveryNote) deliveryService.findAll(pageable);
+    public Page<DeliveryNote> getAll(Pageable pageable) {
+        return deliveryService.findAll(pageable);
     }
+
     @GetMapping(path = "{id}")
     public DeliveryNote getById(@PathVariable("id") Long id) throws Exception {
         return deliveryService.findById(id);
