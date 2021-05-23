@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -37,17 +38,6 @@ public class CustomerService {
         repository.save(customer);
     }
 
-    public void update(Long id, Customer newCustomer) throws Exception {
-        repository.findById(id).map(customer -> {
-            customer.setName(newCustomer.getName());
-            customer.setAddress(newCustomer.getAddress());
-            customer.setEmail(newCustomer.getEmail());
-            customer.setPhone(newCustomer.getPhone());
-            customer.setFax(newCustomer.getFax());
-            customer.setContactPerson(newCustomer.getContactPerson());
-            return repository.save(customer);
-        }).orElseThrow(() -> new Exception("Customer not found"));
-    }
 
     public Page<Customer> find( Optional<String> name, Optional<String> address, Optional<String> phone, Pageable pageable) {
         if (name.isPresent()) {
@@ -60,5 +50,28 @@ public class CustomerService {
             return repository.findByPhone(phone.orElse(""), pageable);
         }
         return repository.findAll(pageable);
+    }
+
+    @Transactional
+    public void update(Long id, String name, String address, String email, String phone, String fax, String contactPerson) throws Exception {
+        Customer customer = repository.findById(id).orElseThrow(() -> new Exception("Customer id not found"));
+        if (name != null && name.length() > 0) {
+            customer.setName(name);
+        }
+        if (address != null && address.length() > 0) {
+            customer.setAddress(address);
+        }
+        if (email != null && email.length() > 0) {
+            customer.setEmail(email);
+        }
+        if (phone != null && phone.length() > 0) {
+            customer.setPhone(phone);
+        }
+        if (fax != null && fax.length() > 0) {
+            customer.setFax(fax);
+        }
+        if (contactPerson != null && contactPerson.length() > 0) {
+            customer.setContactPerson(contactPerson);
+        }
     }
 }

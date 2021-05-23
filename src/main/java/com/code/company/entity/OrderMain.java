@@ -2,6 +2,7 @@ package com.code.company.entity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,8 +22,9 @@ public class OrderMain {
     @JoinColumn(referencedColumnName = "id", nullable = false)
     private Provider provider;
 
+
     @ElementCollection
-    private List<PackageDetail> packageDetails;
+    private List<PackageDetail> packageDetails = new ArrayList<>();
 
     public OrderMain() {
     }
@@ -30,6 +32,14 @@ public class OrderMain {
     public OrderMain(Staff staff, Provider provider) {
         this.staff = staff;
         this.provider = provider;
+    }
+
+    public OrderMain(OrderMain orderMain) {
+        this.id = orderMain.id;
+        this.date = orderMain.date;
+        this.staff = orderMain.staff;
+        this.provider = orderMain.provider;
+        this.packageDetails = orderMain.packageDetails;
     }
 
     public Long getId() {

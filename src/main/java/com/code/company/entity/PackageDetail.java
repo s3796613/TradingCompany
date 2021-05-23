@@ -21,7 +21,7 @@ public class PackageDetail {
     public PackageDetail(Product product, int quantity) {
         this.product = product;
         this.quantity = quantity;
-        this.price = this.product.getPrice();
+        this.price = product.getPrice();
     }
 
     public Product getProduct() {

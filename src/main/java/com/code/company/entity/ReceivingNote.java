@@ -2,6 +2,7 @@ package com.code.company.entity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,23 +18,23 @@ public class ReceivingNote{
     private Long id;
     private LocalDate date;
     @ManyToOne
-    @JoinColumn(referencedColumnName = "id",nullable=false)
+    @JoinColumn(referencedColumnName = "id")
     private Staff staff;
 
-    @OneToOne
-    @JoinColumn(name="id", nullable=false)
-    private OrderMain order;
+
+    @Column(nullable = false)
+    private Long orderID;
 
     @ElementCollection
-    private List<PackageDetail> packageDetails;
+    private List<PackageDetail> receivingDetails = new ArrayList<>();
 
     public ReceivingNote() {
     }
 
-    public ReceivingNote(LocalDate date, Staff staff, OrderMain order) {
+    public ReceivingNote(LocalDate date, Staff staff, Long orderID) {
         this.date = date;
         this.staff = staff;
-        this.order = order;
+        this.orderID = orderID;
     }
 
     public Long getId() {
@@ -60,9 +61,22 @@ public class ReceivingNote{
         this.staff = staff;
     }
 
-    public OrderMain getOrder() {
-        return order;
+    public Long getOrderID() {
+        return orderID;
     }
+
+    public void setOrderID(Long orderID) {
+        this.orderID = orderID;
+    }
+
+    public List<PackageDetail> getReceivingDetails() {
+        return receivingDetails;
+    }
+
+    public void setReceivingDetails(List<PackageDetail> receivingDetails) {
+        this.receivingDetails = receivingDetails;
+    }
+
 
     public void setOrder(OrderMain order) {
         this.order = order;
