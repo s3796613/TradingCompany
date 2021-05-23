@@ -1,6 +1,7 @@
 package com.code.company.service;
 
 import com.code.company.JPA.StaffRepository;
+import com.code.company.entity.SaleInvoice;
 import com.code.company.entity.Staff;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -74,4 +75,7 @@ public class StaffService {
     }
 
 
+    public Page<SaleInvoice> getStaffSale(Long id, Pageable pageable) {
+        return staffRepository.getStaffSaleInvoice(id, pageable);
+    }
 }

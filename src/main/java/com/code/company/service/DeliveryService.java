@@ -22,6 +22,10 @@ public class DeliveryService {
 
     //CRUD
 
+    public Page<DeliveryNote> findAll(Pageable pageable) {
+        return deliveryRepository.findAll(pageable);
+    }
+
     public DeliveryNote findById(Long id) throws Exception {
         return deliveryRepository.findById(id).orElseThrow(()-> new Exception("Delivery note not found!"));
     }
@@ -37,11 +41,7 @@ public class DeliveryService {
             deliveryNote.setStaff(updated.getStaff());
             deliveryNote.setPackageDetails(updated.getPackageDetails());
             return deliveryRepository.save(deliveryNote);
-        }).orElseThrow(() -> new Exception("Order id not found!"));
-    }
-
-    public Page<DeliveryNote> findAll(Pageable pageable) {
-        return deliveryRepository.findAll(pageable);
+        }).orElseThrow(() -> new Exception("Delivery id not found!"));
     }
 
     public void delete(Long id) {

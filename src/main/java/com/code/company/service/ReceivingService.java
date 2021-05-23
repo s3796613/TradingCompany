@@ -46,8 +46,8 @@ public class ReceivingService {
         }
 
         if (orderID != null && orderID > 0) {
-            receivingNote.setOrderID(orderID);
             receivingNote.setReceivingDetails(getOrderData(orderID));
+            receivingNote.setOrderID(orderID);
         }
 
         if (date != null) {

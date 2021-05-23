@@ -1,6 +1,5 @@
 package com.code.company.controller;
 
-import com.code.company.entity.Inventory;
 import com.code.company.entity.Storage;
 import com.code.company.service.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
