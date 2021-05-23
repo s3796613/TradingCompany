@@ -23,7 +23,7 @@ public class SaleInvoiceController {
     }
 
     @GetMapping(path = "{id}")
-    public SaleInvoice getById(@RequestParam("id") Long id) throws Exception {
+    public SaleInvoice getById(@PathVariable("id") Long id) throws Exception {
         return saleInvoiceService.getById(id);
     }
 
@@ -47,7 +47,7 @@ public class SaleInvoiceController {
     }
 
     @GetMapping(path = "find")
-    public Page<SaleInvoice> find(@RequestParam("star") String start,
+    public Page<SaleInvoice> find(@RequestParam("start") String start,
                                   @RequestParam("end") String end,
                                   Pageable pageable) {
         return saleInvoiceService.find(start,end,pageable);
