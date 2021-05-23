@@ -2,6 +2,7 @@ package com.code.company.controller;
 
 import com.code.company.entity.DeliveryNote;
 import com.code.company.entity.PackageDetail;
+import com.code.company.entity.ReceivingNote;
 import com.code.company.service.DeliveryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -23,7 +24,7 @@ public class DeliveryController {
     }
 
     @GetMapping
-    public DeliveryNote findAll(Pageable pageable) throws Exception {
+    public DeliveryNote getAll(Pageable pageable) throws Exception {
         return (DeliveryNote) deliveryService.findAll(pageable);
     }
     @GetMapping(path = "{id}")
@@ -38,9 +39,11 @@ public class DeliveryController {
 
     @PutMapping("{id}")
     public void save(@PathVariable("id") Long id,
-                     @RequestBody(required = false) LocaDate date,
-                     @RequestBody(required = false) Staff staff,
-                     @RequestBody(required = false) List<PackageDetail> packageDetails) throws Exception {
+                     @RequestBody(required = false) DeliveryNote updated) throws Exception {
         deliveryService.update(id,updated);
+    }
+    @DeleteMapping("{id}")
+    public void delete(@PathVariable("id") Long id) {
+        deliveryService.delete(id);
     }
 }

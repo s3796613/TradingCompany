@@ -2,12 +2,11 @@ package com.code.company.service;
 
 import com.code.company.JPA.DeliveryRepository;
 import com.code.company.entity.DeliveryNote;
-import com.code.company.entity.PackageDetail;
-import com.code.company.entity.Staff;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -29,10 +28,21 @@ public class DeliveryService {
         deliveryRepository.save(deliveryNote);
     }
 
-    public void update(Long id, LocalDate newDate, Staff staff, List<PackageDetail> packageDetails) throws Exception{
+    @Transactional
+    public void update(Long id, DeliveryNote updated) throws Exception{
+        deliveryRepository.findById(id).map(deliveryNote -> {
+            deliveryNote.setDate(updated.getDate());
+            deliveryNote.setStaff(updated.getStaff());
+            deliveryNote.setPackageDetails(updated.getPackageDetails());
+            return deliveryRepository.save(deliveryNote);
+        }).orElseThrow(() -> new Exception("Order id not found!"));
     }
 
     public Page<DeliveryNote> findAll(Pageable pageable) {
         return deliveryRepository.findAll(pageable);
+    }
+
+    public void delete(Long id) {
+        deliveryRepository.deleteById(id);
     }
 }

@@ -38,9 +38,6 @@ public class ReceivingService {
         return "Create receiving note successfully with id " + receivingNote.getId() + ", orderID: " + receivingNote.getOrderID();
     }
 
-
-
-
     @Transactional
     public void update(Long id, Long staffID, Long orderID, String date) throws Exception {
         ReceivingNote receivingNote = receivingRepository.findById(id).orElseThrow(() -> new Exception("Receiving note id not found"));
