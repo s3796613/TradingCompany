@@ -22,10 +22,6 @@ public class DeliveryService {
 
     //CRUD
 
-    public Page<DeliveryNote> findAll(Pageable pageable) {
-        return deliveryRepository.findAll(pageable);
-    }
-
     public DeliveryNote findById(Long id) throws Exception {
         return deliveryRepository.findById(id).orElseThrow(()-> new Exception("Delivery note not found!"));
     }
