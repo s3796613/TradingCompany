@@ -1,5 +1,6 @@
 package com.code.company.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -11,6 +12,7 @@ public class PackageDetail {
     @JoinColumn(referencedColumnName = "id",nullable=false)
     private Product product;
 
+    @Column(nullable = false)
     private int quantity;
     private double price;
 

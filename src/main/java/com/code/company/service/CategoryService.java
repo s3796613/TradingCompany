@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CategoryService {
@@ -24,11 +25,10 @@ public class CategoryService {
         categoryRepository.save(newCategory);
     }
 
-    public void update(Long id, Category newCategory) throws Exception {
-        categoryRepository.findById(id).map(category -> {
-            category.setName(newCategory.getName());
-            return categoryRepository.save(category);
-        }).orElseThrow(() -> new Exception("Category with id " + id + " is not found!"));
+    @Transactional
+    public void update(Long id, String newCategory) throws Exception {
+        Category category = categoryRepository.findById(id).orElseThrow(() -> new Exception("Category with id " + id + " is not found!"));
+        category.setName(newCategory);
     }
 
     public void delete(Long id) {

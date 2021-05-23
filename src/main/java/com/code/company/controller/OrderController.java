@@ -7,6 +7,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+
 @RestController
 @RequestMapping("order")
 public class OrderController {
@@ -36,5 +38,17 @@ public class OrderController {
     public void save(@PathVariable("id") Long id,
                      @RequestBody OrderMain updated) throws Exception {
         orderService.update(id,updated);
+    }
+
+    @DeleteMapping("{id}")
+    public void delete(@PathVariable("id") Long id) {
+        orderService.delete(id);
+    }
+
+    @GetMapping(path = "find")
+    public Page<OrderMain> find(@RequestParam("startDate") String startDate,
+                                @RequestParam("endDate") String endDate,
+                                Pageable pageable) throws Exception {
+        return orderService.find(startDate,endDate,pageable);
     }
 }

@@ -16,6 +16,7 @@ public class ReceivingNote{
             generator = "recv_note_generator"
     )
     private Long id;
+    @Column(nullable = false)
     private LocalDate date;
     @ManyToOne
     @JoinColumn(referencedColumnName = "id")

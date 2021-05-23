@@ -10,6 +10,8 @@ public class Category {
             strategy = GenerationType.IDENTITY
     )
     private Long id;
+
+    @Column(nullable = false)
     private String name;
 
     @OneToMany

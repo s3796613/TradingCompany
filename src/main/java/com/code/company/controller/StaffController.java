@@ -44,8 +44,11 @@ public class StaffController {
 
     @PutMapping(path = "{id}")
     public void update(@PathVariable("id") Long id,
-                       @RequestBody Staff newStaff) throws Exception {
-        staffService.update(id,newStaff);
+                       @RequestParam(required = false) String name,
+                       @RequestParam(required = false) String address,
+                       @RequestParam(required = false) String email,
+                       @RequestParam(required = false) String phone) throws Exception {
+        staffService.update(id,name,address,email,phone);
     }
 
     //Search api

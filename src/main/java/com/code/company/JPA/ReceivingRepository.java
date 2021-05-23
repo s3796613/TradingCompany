@@ -22,4 +22,6 @@ public interface ReceivingRepository extends JpaRepository<ReceivingNote, Long> 
     Optional<Staff> staffData(Long id);
 
     Optional<Page<ReceivingNote>> findByDateBetween(LocalDate startDate, LocalDate endDate, Pageable pageable);
+
+
 }

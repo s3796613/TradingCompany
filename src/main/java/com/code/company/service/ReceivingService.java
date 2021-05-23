@@ -32,6 +32,7 @@ public class ReceivingService {
     }
 
     public String add(ReceivingNote receivingNote) throws Exception {
+        receivingRepository.staffData(receivingNote.getStaff().getId()).orElseThrow(() -> new Exception("Staff id not found"));
         receivingNote.setReceivingDetails(getOrderData(receivingNote.getOrderID()));
         receivingRepository.save(receivingNote);
         return "Create receiving note successfully with id " + receivingNote.getId() + ", orderID: " + receivingNote.getOrderID();
