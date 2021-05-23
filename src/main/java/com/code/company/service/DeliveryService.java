@@ -2,8 +2,9 @@ package com.code.company.service;
 
 import com.code.company.JPA.DeliveryRepository;
 import com.code.company.entity.DeliveryNote;
-import com.code.company.entity.OrderMain;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,6 +14,12 @@ public class DeliveryService {
     @Autowired
     public DeliveryService(DeliveryRepository deliveryRepository) {
         this.deliveryRepository = deliveryRepository;
+    }
+
+    //CRUD
+
+    public Page<DeliveryNote> findAll(Pageable pageable) {
+        return deliveryRepository.findAll(pageable);
     }
 
     public DeliveryNote findById(Long id) throws Exception {
@@ -25,4 +32,7 @@ public class DeliveryService {
 
     public void update(Long id, DeliveryNote updated) throws Exception{
     }
+
+    //Search api
+
 }

@@ -11,6 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -23,6 +24,8 @@ public interface ReceivingRepository extends JpaRepository<ReceivingNote, Long> 
     Optional<Staff> staffData(Long id);
 
     Optional<Page<ReceivingNote>> findByDateBetween(LocalDate startDate, LocalDate endDate, Pageable pageable);
+
+    List<ReceivingNote> findByDateBetween(LocalDate startDate, LocalDate endDate);
 
 
 }

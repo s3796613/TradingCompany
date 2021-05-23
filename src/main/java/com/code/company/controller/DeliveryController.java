@@ -4,6 +4,8 @@ import com.code.company.entity.DeliveryNote;
 import com.code.company.entity.OrderMain;
 import com.code.company.service.DeliveryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,6 +18,11 @@ public class DeliveryController {
     @Autowired
     public DeliveryController(DeliveryService deliveryService) {
         this.deliveryService = deliveryService;
+    }
+
+    @GetMapping
+    public Page<DeliveryNote> getAll(Pageable pageable) {
+        return deliveryService.findAll(pageable);
     }
 
     @GetMapping(path = "{id}")

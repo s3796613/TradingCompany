@@ -24,13 +24,6 @@ public class DeliveryNote {
     @ElementCollection
     private List<PackageDetail> packageDetails;
 
-    public List<PackageDetail> getPackageDetails() {
-        return packageDetails;
-    }
-
-    public void setPackageDetails(List<PackageDetail> packageDetails) {
-        this.packageDetails = packageDetails;
-    }
 
     public DeliveryNote() {
     }
@@ -38,6 +31,12 @@ public class DeliveryNote {
     public DeliveryNote(LocalDate date, Staff staff) {
         this.date = date;
         this.staff = staff;
+    }
+
+    public DeliveryNote(LocalDate date, Staff staff, List<PackageDetail> packageDetails) {
+        this.date = date;
+        this.staff = staff;
+        this.packageDetails = packageDetails;
     }
 
     public Long getId() {
@@ -62,6 +61,14 @@ public class DeliveryNote {
 
     public void setStaff(Staff staff) {
         this.staff = staff;
+    }
+
+    public List<PackageDetail> getPackageDetails() {
+        return packageDetails;
+    }
+
+    public void setPackageDetails(List<PackageDetail> packageDetails) {
+        this.packageDetails = packageDetails;
     }
 
 }
