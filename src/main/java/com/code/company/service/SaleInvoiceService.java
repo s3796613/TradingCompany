@@ -105,7 +105,10 @@ public class SaleInvoiceService {
     public Page<SaleInvoice> getSaleInvoicesByCustomerAndStaff(Long customerID,Long staffID,String startDate, String endDate, Pageable pageable) {
         LocalDate start = LocalDate.parse(startDate);
         LocalDate end = LocalDate.parse(endDate);
-        return saleInvoiceRepository.getSaleInvoiceByCustomerIDAndStaffIDAndDateBetween(customerID,staffID,start,end,pageable);
+        if (customerID != null && staffID != null) {
+            return saleInvoiceRepository.getSaleInvoiceByCustomerIDAndStaffIDAndDateBetween(customerID, staffID, start, end, pageable);
+        }
+        return saleInvoiceRepository.findByDateBetween(start,end,pageable);
 
     }
 

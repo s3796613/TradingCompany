@@ -25,7 +25,6 @@ public class StaffControllerTest extends AbstractTest {
 
     @Test
     public void getAll() throws Exception {
-
         String uri = "/staff";
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
                 .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
@@ -47,6 +46,24 @@ public class StaffControllerTest extends AbstractTest {
         Staff staff = super.mapFromJson(content, Staff.class);
         assertEquals("jane@hotmail.com", staff.getEmail());
     }
+    @Test
+    public void deleteById() throws Exception {
+        String uri = "/staff/3";
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.delete(uri)
+                .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals(200, status);
+
+        uri = "/staff/3";
+        mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+
+        status = mvcResult.getResponse().getStatus();
+        String content = mvcResult.getResponse().getContentAsString();
+        assertEquals("",content);
+    }
+
     @Test
     public void add() throws Exception {
         String uri = "/staff";
