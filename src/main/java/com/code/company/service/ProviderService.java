@@ -1,6 +1,7 @@
 package com.code.company.service;
 
 import com.code.company.JPA.ProviderRepository;
+import com.code.company.controller.exception.NotFound;
 import com.code.company.entity.Provider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -41,7 +42,7 @@ public class ProviderService {
 
     @Transactional
     public void update(Long id, String name, String address, String email, String phone, String fax, String contactPerson) throws Exception {
-        Provider provider = providerRepository.findById(id).orElseThrow(() -> new Exception("Provider id not found"));
+        Provider provider = providerRepository.findById(id).orElseThrow(() -> new NotFound("Provider id not found"));
         if (name != null && name.length() > 0) {
             provider.setName(name);
         }

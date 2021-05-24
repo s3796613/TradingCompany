@@ -1,6 +1,8 @@
 package com.code.company.service;
 
 import com.code.company.JPA.OrderRepository;
+import com.code.company.controller.exception.NoResult;
+import com.code.company.controller.exception.NotFound;
 import com.code.company.entity.OrderMain;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,11 +24,15 @@ public class OrderService {
     //CRUD
 
     public Page<OrderMain> findAll(Pageable pageable) {
-        return orderRepository.findAll(pageable);
+        Page<OrderMain> data = orderRepository.findAll(pageable);
+        if (data.isEmpty()) {
+            throw new NoResult("No order data found!");
+        }
+        return data;
     }
 
     public OrderMain findById(Long id) throws Exception {
-        return orderRepository.findById(id).orElseThrow(()-> new Exception("Order not found!"));
+        return orderRepository.findById(id).orElseThrow(()-> new NotFound("Order not found!"));
     }
 
     public void add(OrderMain orderMain) {
@@ -41,7 +47,7 @@ public class OrderService {
             orderMain.setProvider(updated.getProvider());
             orderMain.setPackageDetails(updated.getPackageDetails());
             return orderRepository.save(orderMain);
-        }).orElseThrow(() -> new Exception("Order id not found!"));
+        }).orElseThrow(() -> new NotFound("Order id not found!"));
     }
 
     public void delete(Long id) {
@@ -52,6 +58,6 @@ public class OrderService {
     public Page<OrderMain> find(String startDate, String endDate, Pageable pageable) throws Exception {
         LocalDate start = LocalDate.parse(startDate);
         LocalDate end = LocalDate.parse(endDate);
-        return orderRepository.findByDateBetween(start,end,pageable).orElseThrow(() -> new Exception("Didn't find any order"));
+        return orderRepository.findByDateBetween(start,end,pageable).orElseThrow(() -> new NoResult("Didn't find any order"));
     }
 }

@@ -1,6 +1,7 @@
 package com.code.company.service;
 
 import com.code.company.JPA.ProductRepository;
+import com.code.company.controller.exception.NotFound;
 import com.code.company.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,7 +24,11 @@ public class ProductService {
     }
 
     public Product findById(Long id) {
-        return productRepository.findProductById(id);
+        Product product = productRepository.findProductById(id);
+        if (product == null) {
+            throw new NotFound();
+        }
+        return product;
     }
 
     public void add(Product newProduct) {
@@ -37,7 +42,7 @@ public class ProductService {
 
     @Transactional
     public void update(Long id, String name, String model, String company, String brand, Long categoryID, String description, Double price) throws Exception {
-        Product product = productRepository.findById(id).orElseThrow(() -> new Exception("Product id not found"));
+        Product product = productRepository.findById(id).orElseThrow(() -> new NotFound("Product id not found"));
         if (name != null && name.length() > 0) {
             product.setName(name);
         }
@@ -51,7 +56,7 @@ public class ProductService {
             product.setBrand(brand);
         }
         if (categoryID != null && categoryID > 0) {
-            product.setCategory(productRepository.getCategory(categoryID).orElseThrow(() -> new Exception("Category id not found!")));
+            product.setCategory(productRepository.getCategory(categoryID).orElseThrow(() -> new NotFound("Category id not found!")));
         }
         if (description != null && description.length() > 0) {
             product.setDescription(description);

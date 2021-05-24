@@ -52,7 +52,8 @@ public class SaleInvoiceController {
                                   Pageable pageable) {
         return saleInvoiceService.find(start,end,pageable);
     }
-    @GetMapping(path = "find")
+
+    @GetMapping(path = "search")
     public Page<SaleInvoice> find(@RequestParam("customerID") Long customerID,
                                   @RequestParam("staffID") Long staffID,
                                   @RequestParam("start") String start,

@@ -1,9 +1,13 @@
 package com.code.company.service;
 
-import com.code.company.JPA.SaleInvoiceRepository;
 import com.code.company.JPA.StaffRepository;
+import com.code.company.controller.exception.NoResult;
+import com.code.company.controller.exception.NotFound;
 import com.code.company.entity.SaleInvoice;
 import com.code.company.entity.Staff;
+import org.hibernate.HibernateException;
+import org.hibernate.JDBCException;
+import org.hibernate.TransactionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -11,7 +15,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import javax.servlet.ServletException;
+import java.sql.SQLTransactionRollbackException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,9 +42,14 @@ public class StaffService {
     }
 
     public Staff getById(Long id) {
-        return staffRepository.findStaffById(id);
+        Staff staff = staffRepository.findStaffById(id);
+        if (staff == null) {
+            throw new NotFound();
+        } else return staff;
     }
 
+
+    @Transactional
     public void deleteById(Long id) {
         staffRepository.deleteById(id);
     }
@@ -44,6 +57,7 @@ public class StaffService {
     public void add(Staff staff) {
         staffRepository.save(staff);
     }
+
 
     @Transactional
     public void update(Long id, String name, String address, String email, String phone) throws Exception {
@@ -91,6 +105,9 @@ public class StaffService {
             if (invoice.getDate().isAfter(start) && invoice.getDate().isBefore(end)) {
                 filtered.add(invoice);
             }
+        }
+        if (filtered.isEmpty()) {
+            throw new NoResult("No sale found between" + startDate + " - " + endDate);
         }
         return new PageImpl<>(filtered,pageable,filtered.size());
     }

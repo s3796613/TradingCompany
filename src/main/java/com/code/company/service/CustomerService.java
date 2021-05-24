@@ -1,6 +1,8 @@
 package com.code.company.service;
 
 import com.code.company.JPA.CustomerRepository;
+import com.code.company.controller.exception.NoResult;
+import com.code.company.controller.exception.NotFound;
 import com.code.company.entity.Customer;
 import com.code.company.entity.SaleInvoice;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +35,11 @@ public class CustomerService {
     }
 
     public Customer getById(Long id) {
-        return repository.findCustomerById(id);
+        Customer customer = repository.findCustomerById(id);
+        if (customer == null) {
+            throw new NotFound("Did not find any customer with the id: " + id);
+        }
+        return customer;
     }
 
     public void deleteById(Long id) {
@@ -92,6 +98,9 @@ public class CustomerService {
             if (invoice.getDate().isAfter(startDate) && invoice.getDate().isBefore(endDate)) {
                 filtered.add(invoice);
             }
+        }
+        if (filtered.isEmpty()) {
+            throw new NoResult("No sale found between " + start + " - " +end);
         }
         return new PageImpl<>(filtered,pageable,filtered.size());
     }

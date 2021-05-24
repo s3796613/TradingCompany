@@ -1,6 +1,8 @@
 package com.code.company.service;
 
 import com.code.company.JPA.DeliveryRepository;
+import com.code.company.controller.exception.NoResult;
+import com.code.company.controller.exception.NotFound;
 import com.code.company.entity.DeliveryNote;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -27,7 +29,7 @@ public class DeliveryService {
     }
 
     public DeliveryNote findById(Long id) throws Exception {
-        return deliveryRepository.findById(id).orElseThrow(()-> new Exception("Delivery note not found!"));
+        return deliveryRepository.findById(id).orElseThrow(()-> new NotFound("Delivery note not found!"));
     }
 
     public void add(DeliveryNote deliveryNote) {
@@ -41,7 +43,7 @@ public class DeliveryService {
             deliveryNote.setStaff(updated.getStaff());
             deliveryNote.setPackageDetails(updated.getPackageDetails());
             return deliveryRepository.save(deliveryNote);
-        }).orElseThrow(() -> new Exception("Delivery id not found!"));
+        }).orElseThrow(() -> new NotFound("Delivery id not found!"));
     }
 
     public void delete(Long id) {
@@ -53,7 +55,11 @@ public class DeliveryService {
     public Page<DeliveryNote> find(String start, String end, Pageable pageable) {
         LocalDate startDate = LocalDate.parse(start);
         LocalDate endDate = LocalDate.parse(end);
-        return deliveryRepository.findByDateBetween(startDate,endDate,pageable);
+        Page<DeliveryNote> data = deliveryRepository.findByDateBetween(startDate,endDate,pageable);
+        if (data.isEmpty()) {
+            throw new NoResult("No result found between " + start + " - " +end);
+        }
+        return data;
     }
 
 

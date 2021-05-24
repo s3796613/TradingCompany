@@ -3,11 +3,14 @@ package com.code.company.controller;
 import com.code.company.entity.SaleInvoice;
 import com.code.company.entity.Staff;
 import com.code.company.service.StaffService;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.PersistenceException;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,7 +38,7 @@ public class StaffController {
 
     @DeleteMapping(path = "{id}")
     public void deleteById(@PathVariable("id") Long id) {
-        staffService.deleteById(id);
+            staffService.deleteById(id);
     }
 
     @PostMapping

@@ -1,6 +1,8 @@
 package com.code.company.service;
 
 import com.code.company.JPA.SaleInvoiceRepository;
+import com.code.company.controller.exception.NoResult;
+import com.code.company.controller.exception.NotFound;
 import com.code.company.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,22 +28,26 @@ public class SaleInvoiceService {
 
     //CRUD
     public Page<SaleInvoice> findAll(Pageable pageable) {
-        return saleInvoiceRepository.findAll(pageable);
+        Page<SaleInvoice> data = saleInvoiceRepository.findAll(pageable);
+        if (data.isEmpty()) {
+            throw new NoResult("No sale invoice found");
+        }
+        return data;
     }
 
     public SaleInvoice getById(Long id) throws Exception {
-        return saleInvoiceRepository.findById(id).orElseThrow(() -> new Exception("Sale invoice id not found!"));
+        return saleInvoiceRepository.findById(id).orElseThrow(() -> new NotFound("Sale invoice id not found!"));
     }
 
     @Transactional
     public String add(SaleInvoice saleInvoice) throws Exception {
-        Staff staff =saleInvoiceRepository.getStaffByID(saleInvoice.getStaffID()).orElseThrow(() -> new Exception("Staff id not found"));
-        Customer customer = saleInvoiceRepository.getCustomerByID(saleInvoice.getCustomerID()).orElseThrow(() -> new Exception("Customer id not found"));
+        Staff staff =saleInvoiceRepository.getStaffByID(saleInvoice.getStaffID()).orElseThrow(() -> new NotFound("Staff id not found"));
+        Customer customer = saleInvoiceRepository.getCustomerByID(saleInvoice.getCustomerID()).orElseThrow(() -> new NotFound("Customer id not found"));
         saleInvoice.setCustomerName(customer.getName());
         saleInvoice.setStaffName(staff.getName());
         saleInvoice.setSaleDetails(getDeliveryData(saleInvoice.getDeliveryID()));
         saleInvoiceRepository.save(saleInvoice);
-        return "Sale invoice created! " + saleInvoice.toString();
+        return "Sale invoice created! id: " + saleInvoice.getId();
     }
 
     public void delete(Long id) {
@@ -50,9 +56,9 @@ public class SaleInvoiceService {
 
     @Transactional
     public void update(Long id, Long staffID, Long deliveryID, Long customerID, String date) throws Exception {
-        SaleInvoice saleInvoice = saleInvoiceRepository.findById(id).orElseThrow(() -> new Exception("Sale invoice id not found"));
+        SaleInvoice saleInvoice = saleInvoiceRepository.findById(id).orElseThrow(() -> new NotFound("Sale invoice id not found"));
         if (staffID != null && staffID > 0) {
-            Staff staff = saleInvoiceRepository.getStaffByID(staffID).orElseThrow(() -> new Exception("Staff id not found"));
+            Staff staff = saleInvoiceRepository.getStaffByID(staffID).orElseThrow(() -> new NotFound("Staff id not found"));
             saleInvoice.setStaffID(staff.getId());
             saleInvoice.setStaffName(staff.getName());
         }
@@ -61,7 +67,7 @@ public class SaleInvoiceService {
             saleInvoice.setDeliveryID(deliveryID);
         }
         if (customerID != null && customerID > 0) {
-            Customer customer = saleInvoiceRepository.getCustomerByID(customerID).orElseThrow(() -> new Exception("Customer id not found"));
+            Customer customer = saleInvoiceRepository.getCustomerByID(customerID).orElseThrow(() -> new NotFound("Customer id not found"));
             saleInvoice.setCustomerID(customer.getId());
             saleInvoice.setCustomerName(customer.getName());
         }
@@ -74,7 +80,7 @@ public class SaleInvoiceService {
 
     //Data handling
     private List<SaleDetail> getDeliveryData(Long deliveryID) throws Exception {
-        DeliveryNote deliveryNote = saleInvoiceRepository.getDeliveryNote(deliveryID).orElseThrow(() -> new Exception("Delivery id not found"));
+        DeliveryNote deliveryNote = saleInvoiceRepository.getDeliveryNote(deliveryID).orElseThrow(() -> new NotFound("Delivery id not found"));
         List<PackageDetail> retrievedData = deliveryNote.getPackageDetails();
         List<SaleDetail> newData = new ArrayList<>();
         for (PackageDetail p: retrievedData) {
@@ -99,7 +105,6 @@ public class SaleInvoiceService {
     public Page<SaleInvoice> getSaleInvoicesByCustomerAndStaff(Long customerID,Long staffID,String startDate, String endDate, Pageable pageable) {
         LocalDate start = LocalDate.parse(startDate);
         LocalDate end = LocalDate.parse(endDate);
-
         return saleInvoiceRepository.getSaleInvoiceByCustomerIDAndStaffIDAndDateBetween(customerID,staffID,start,end,pageable);
 
     }

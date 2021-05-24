@@ -1,6 +1,8 @@
 package com.code.company.service;
 
 import com.code.company.JPA.ReceivingRepository;
+import com.code.company.controller.exception.NoResult;
+import com.code.company.controller.exception.NotFound;
 import com.code.company.entity.OrderMain;
 import com.code.company.entity.PackageDetail;
 import com.code.company.entity.ReceivingNote;
@@ -29,11 +31,11 @@ public class ReceivingService {
     }
 
     public ReceivingNote findById(Long id) throws Exception {
-        return receivingRepository.findById(id).orElseThrow(() -> new Exception("ReceivingNote's id not found!"));
+        return receivingRepository.findById(id).orElseThrow(() -> new NotFound("ReceivingNote's id not found!"));
     }
 
     public String add(ReceivingNote receivingNote) throws Exception {
-        receivingRepository.staffData(receivingNote.getStaff().getId()).orElseThrow(() -> new Exception("Staff id not found"));
+        receivingRepository.staffData(receivingNote.getStaff().getId()).orElseThrow(() -> new NotFound("Staff id not found"));
         receivingNote.setReceivingDetails(getOrderData(receivingNote.getOrderID()));
         receivingRepository.save(receivingNote);
         return "Create receiving note successfully with id " + receivingNote.getId() + ", orderID: " + receivingNote.getOrderID();
@@ -45,9 +47,9 @@ public class ReceivingService {
 
     @Transactional
     public void update(Long id, Long staffID, Long orderID, String date) throws Exception {
-        ReceivingNote receivingNote = receivingRepository.findById(id).orElseThrow(() -> new Exception("Receiving note id not found"));
+        ReceivingNote receivingNote = receivingRepository.findById(id).orElseThrow(() -> new NotFound("Receiving note id not found"));
         if (staffID != null && staffID > 0) {
-            receivingNote.setStaff(receivingRepository.staffData(staffID).orElseThrow(() -> new Exception("Staff id not found")));
+            receivingNote.setStaff(receivingRepository.staffData(staffID).orElseThrow(() -> new NotFound("Staff id not found")));
         }
 
         if (orderID != null && orderID > 0) {
@@ -56,10 +58,8 @@ public class ReceivingService {
         }
 
         if (date != null) {
-
             receivingNote.setDate(LocalDate.parse(date));
         }
-
     }
 
     //Method for getting order details by orderID
@@ -83,6 +83,6 @@ public class ReceivingService {
     public Page<ReceivingNote> find(String sDate, String eDate, Pageable pageable ) throws Exception {
         LocalDate startDate = LocalDate.parse(sDate);
         LocalDate endDate = LocalDate.parse(eDate);
-        return receivingRepository.findByDateBetween(startDate,endDate,pageable).orElseThrow(() -> new Exception("Didnot find any note"));
+        return receivingRepository.findByDateBetween(startDate,endDate,pageable).orElseThrow(() -> new NoResult("Didnot find any note"));
     }
 }
