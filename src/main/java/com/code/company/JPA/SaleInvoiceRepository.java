@@ -25,5 +25,7 @@ public interface SaleInvoiceRepository extends JpaRepository<SaleInvoice, Long> 
     @Query("select d from DeliveryNote d where d.id=?1")
     Optional<DeliveryNote> getDeliveryNote(Long deliveryID);
 
+    Page<SaleInvoice> getSaleInvoiceByCustomerIDAndStaffIDAndDateBetween(Long customerID,Long staffID,LocalDate start, LocalDate end, Pageable pageable);
+
     Page<SaleInvoice> findByDateBetween(LocalDate start, LocalDate end, Pageable pageable);
 }

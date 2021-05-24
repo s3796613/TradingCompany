@@ -52,4 +52,12 @@ public class SaleInvoiceController {
                                   Pageable pageable) {
         return saleInvoiceService.find(start,end,pageable);
     }
+    @GetMapping(path = "find")
+    public Page<SaleInvoice> find(@RequestParam("customerID") Long customerID,
+                                  @RequestParam("staffID") Long staffID,
+                                  @RequestParam("start") String start,
+                                  @RequestParam("end") String end,
+                                  Pageable pageable) {
+        return saleInvoiceService.getSaleInvoicesByCustomerAndStaff(customerID,staffID,start,end,pageable);
+    }
 }

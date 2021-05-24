@@ -7,14 +7,34 @@ import org.junit.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class StaffControllerTest extends AbstractTest {
+    String allStaff = "{\"content\":[{\"id\":1,\"name\":\"Jane\",\"address\":\"Distric 7\",\"email\":\"jane@hotmail.com\",\"phone\":\"0928361\"},{\"id\":2,\"name\":\"Jack\",\"address\":\"23 Hung Vuong\",\"email\":\"jack@edu.com\",\"phone\":\"092713\"},{\"id\":3,\"name\":\"Alysia Scopham\",\"address\":\"56168 7th Street\",\"email\":\"ascopham6@plala.or.jp\",\"phone\":\"128 581 2103\"},{\"id\":4,\"name\":\"Cornie Kalf\",\"address\":\"01 Michigan Crossing\",\"email\":\"ckalf7@nytimes.com\",\"phone\":\"134 899 3532\"},{\"id\":5,\"name\":\"Pauletta Como\",\"address\":\"67778 Del Sol Plaza\",\"email\":\"pcomo8@so-net.ne.jp\",\"phone\":\"958 169 1256\"}],\"totalPages\":1,\"totalElement\":5,\"pageSize\":20}";
+
     @Override
     @Before
     public void setUp() throws Exception {
         super.setUp();
+
     }
+
+    @Test
+    public void getAll() throws Exception {
+
+        String uri = "/staff";
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals(200, status);
+        String content = mvcResult.getResponse().getContentAsString();
+        assertEquals(allStaff, content);
+    }
+
     @Test
     public void getById() throws Exception {
         String uri = "/staff/1";
@@ -154,4 +174,94 @@ public class StaffControllerTest extends AbstractTest {
         assertEquals(staff2.getPhone(), staff.getPhone());
     }
 
+    @Test
+    public void findByName() throws Exception {
+        String uri = "/staff/find?name=Jane";
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals(200, status);
+
+        String content = mvcResult.getResponse().getContentAsString();
+        System.out.println(content);
+        assertEquals("{\"content\":[{\"id\":1,\"name\":\"Jane\",\"address\":\"Distric 7\",\"email\":\"jane@hotmail.com\",\"phone\":\"0928361\"}],\"totalPages\":1,\"totalElement\":1,\"pageSize\":20}", content);
+    }
+    @Test
+    public void findByAddress() throws Exception {
+        String uri = "/staff/find?address=Distric 7";
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals(200, status);
+
+        String content = mvcResult.getResponse().getContentAsString();
+        System.out.println(content);
+        assertEquals("{\"content\":[{\"id\":1,\"name\":\"Jane\",\"address\":\"Distric 7\",\"email\":\"jane@hotmail.com\",\"phone\":\"0928361\"}],\"totalPages\":1,\"totalElement\":1,\"pageSize\":20}", content);
+    }
+    @Test
+    public void findByEmail() throws Exception {
+        String uri = "/staff/find?email=jane@hotmail.com";
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals(200, status);
+
+        String content = mvcResult.getResponse().getContentAsString();
+        System.out.println(content);
+        assertEquals("{\"content\":[{\"id\":1,\"name\":\"Jane\",\"address\":\"Distric 7\",\"email\":\"jane@hotmail.com\",\"phone\":\"0928361\"}],\"totalPages\":1,\"totalElement\":1,\"pageSize\":20}", content);
+    }
+    @Test
+    public void findByPhone() throws Exception {
+        String uri = "/staff/find?phone=0928361";
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals(200, status);
+
+        String content = mvcResult.getResponse().getContentAsString();
+        System.out.println(content);
+        assertEquals("{\"content\":[{\"id\":1,\"name\":\"Jane\",\"address\":\"Distric 7\",\"email\":\"jane@hotmail.com\",\"phone\":\"0928361\"}],\"totalPages\":1,\"totalElement\":1,\"pageSize\":20}", content);
+    }
+    @Test
+    public void find() throws Exception {
+        String uri = "/staff/find?name=Jane&address=Distric 7&email=jane@hotmail.com&phone=0928361";
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals(200, status);
+
+        String content = mvcResult.getResponse().getContentAsString();
+        System.out.println(content);
+        assertEquals("{\"content\":[{\"id\":1,\"name\":\"Jane\",\"address\":\"Distric 7\",\"email\":\"jane@hotmail.com\",\"phone\":\"0928361\"}],\"totalPages\":1,\"totalElement\":1,\"pageSize\":20}", content);
+    }
+    @Test
+    public void findNoParam() throws Exception {
+        String uri = "/staff/find";
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals(200, status);
+
+        String content = mvcResult.getResponse().getContentAsString();
+        System.out.println(content);
+        assertEquals(allStaff, content);
+    }
+
+    @Test
+    public void getStaffSaleNoParam() throws Exception {
+        String uri = "/staff/1/sale?start";
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals(400, status);
+
+        String content = mvcResult.getResponse().getContentAsString();
+    }
 }

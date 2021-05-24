@@ -4,6 +4,8 @@ import com.code.company.JPA.SaleInvoiceRepository;
 import com.code.company.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -93,6 +95,14 @@ public class SaleInvoiceService {
         return saleInvoiceRepository.findByDateBetween(startD,endD,pageable);
     }
 
+    //Get sales by customer and staff
+    public Page<SaleInvoice> getSaleInvoicesByCustomerAndStaff(Long customerID,Long staffID,String startDate, String endDate, Pageable pageable) {
+        LocalDate start = LocalDate.parse(startDate);
+        LocalDate end = LocalDate.parse(endDate);
+
+        return saleInvoiceRepository.getSaleInvoiceByCustomerIDAndStaffIDAndDateBetween(customerID,staffID,start,end,pageable);
+
+    }
 
 
 
