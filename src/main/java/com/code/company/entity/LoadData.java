@@ -87,24 +87,32 @@ public class LoadData {
 
             OrderMain o1 = new OrderMain();
             o1.setProvider(p1);
-            o1.setDate(LocalDate.now());
+            LocalDate date = LocalDate.of(2021,5,24);
+            o1.setDate(date);
             o1.setStaff(s1);
             o1.setPackageDetails(packageDetailList);
 
             OrderMain o2 = new OrderMain();
             o2.setProvider(p2);
-            o2.setDate(LocalDate.now());
+            o2.setDate(date);
             o2.setStaff(s2);
             o2.setPackageDetails(packageDetailList2);
 
             orderRepository.saveAll(List.of(o1, o2));
 
-////            Load Receiving
-//            ReceivingNote r1 = new ReceivingNote();
-//            r1.setStaff(s2);
-//            r1.setOrderID(1L);
-//            r1.setDate(LocalDate.parse("2020-4-24"));
-//            receivingRepository.save(r1);
+//            Load Receiving
+            ReceivingNote r1 = new ReceivingNote();
+            r1.setStaff(s2);
+            r1.setOrderID(1L);
+            r1.setDate(date);
+            r1.setReceivingDetails(packageDetailList);
+
+            ReceivingNote r2 = new ReceivingNote();
+            r2.setStaff(s1);
+            r2.setOrderID(2L);
+            r2.setDate(date);
+            r2.setReceivingDetails(packageDetailList2);
+            receivingRepository.saveAll(List.of(r1,r2));
 
 
             //Load Delivery
