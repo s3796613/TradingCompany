@@ -84,8 +84,8 @@ public class CustomerService {
 
     public Page<SaleInvoice> findSaleInvoice(Long id, String start, String end) {
         List<SaleInvoice> invoices = repository.getSaleInvoiceByID(id);
-        LocalDate startDate = LocalDate.parse(start);
-        LocalDate endDate = LocalDate.parse(end);
+        LocalDate startDate = LocalDate.parse(start).minusDays(1);
+        LocalDate endDate = LocalDate.parse(end).plusDays(1);
         Pageable pageable = PageRequest.of(0,20);
         List<SaleInvoice> filtered = new ArrayList<>();
         for (SaleInvoice invoice : invoices) {

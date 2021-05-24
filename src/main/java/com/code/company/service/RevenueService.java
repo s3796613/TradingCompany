@@ -48,8 +48,8 @@ public class RevenueService {
 
     private double getTotalValue(List<SaleInvoice> saleInvoiceList, String startDate, String endDate) {
         double totalValue = 0;
-        LocalDate start = LocalDate.parse(startDate);
-        LocalDate end = LocalDate.parse(endDate);
+        LocalDate start = LocalDate.parse(startDate).plusDays(1);
+        LocalDate end = LocalDate.parse(endDate).minusDays(1);
         for (SaleInvoice saleInvoice : saleInvoiceList) {
             if (saleInvoice.getDate().isAfter(start) && saleInvoice.getDate().isBefore(end)) {
                 List<SaleDetail> saleDetails = saleInvoice.getSaleDetails();

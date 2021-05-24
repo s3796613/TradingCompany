@@ -81,8 +81,8 @@ public class StaffService {
 
     //Get sales
     public Page<SaleInvoice> getStaffSale(Long id, String startDate, String endDate) {
-        LocalDate start = LocalDate.parse(startDate);
-        LocalDate end = LocalDate.parse(endDate);
+        LocalDate start = LocalDate.parse(startDate).minusDays(1);
+        LocalDate end = LocalDate.parse(endDate).plusDays(1);
         Pageable pageable = PageRequest.of(0,20);
 
         List<SaleInvoice> invoices = staffRepository.getStaffSaleInvoice(id);
