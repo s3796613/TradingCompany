@@ -42,8 +42,9 @@ public class StaffController {
     }
 
     @PostMapping
-    public void add(@RequestBody Staff staff) {
+    public String add(@RequestBody Staff staff) {
         staffService.add(staff);
+        return "Create Staff successfully!";
     }
 
     @PutMapping(path = "{id}")

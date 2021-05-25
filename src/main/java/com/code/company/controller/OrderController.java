@@ -30,8 +30,9 @@ public class OrderController {
     }
 
     @PostMapping
-    public void add(@RequestBody OrderMain orderMain) {
+    public String add(@RequestBody OrderMain orderMain) {
         orderService.add(orderMain);
+        return "Create Order successfully!";
     }
 
     @PutMapping("{id}")

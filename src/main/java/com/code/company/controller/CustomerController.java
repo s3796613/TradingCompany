@@ -42,8 +42,9 @@ public class CustomerController {
     }
 
     @PostMapping
-    public void add(@RequestBody Customer customer) {
+    public String add(@RequestBody Customer customer) {
         customerService.add(customer);
+        return "Create customer successfully!";
     }
 
     @PutMapping(path = "{id}")

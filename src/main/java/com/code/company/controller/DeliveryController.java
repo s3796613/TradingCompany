@@ -34,8 +34,9 @@ public class DeliveryController {
     }
 
     @PostMapping
-    public void add(@RequestBody DeliveryNote deliveryNote) {
+    public String add(@RequestBody DeliveryNote deliveryNote) {
         deliveryService.add(deliveryNote);
+        return "Create Delivery Note successfully!";
     }
 
     @PutMapping("{id}")
