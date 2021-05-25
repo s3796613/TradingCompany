@@ -35,7 +35,7 @@ public class StorageControllerTest extends AbstractTest {
                 .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
         int status = mvcResult.getResponse().getStatus();
         assertEquals(200, status);
-        String expected = "{\"startDate\":\"2021-05-24\",\"endDate\":\"2021-05-25\",\"inventoryList\":[{\"productID\":1,\"productName\":\"Vitamin E\",\"received\":4,\"delivery\":0,\"balance\":4},{\"productID\":2,\"productName\":\"Longos - Chicken Wings\",\"received\":4,\"delivery\":2,\"balance\":2},{\"productID\":3,\"productName\":\"Spinach - Frozen\",\"received\":0,\"delivery\":0,\"balance\":0},{\"productID\":4,\"productName\":\"Tea - English Breakfast\",\"received\":0,\"delivery\":0,\"balance\":0},{\"productID\":5,\"productName\":\"Peach - Halves\",\"received\":0,\"delivery\":0,\"balance\":0}]}";      String content = mvcResult.getResponse().getContentAsString();
+        String expected = "{\"startDate\":\"2021-05-24\",\"endDate\":\"2021-05-25\",\"inventoryList\":[{\"productID\":1,\"productName\":\"Vitamin E\",\"received\":4,\"delivery\":4,\"balance\":0},{\"productID\":2,\"productName\":\"Longos - Chicken Wings\",\"received\":4,\"delivery\":4,\"balance\":0},{\"productID\":3,\"productName\":\"Spinach - Frozen\",\"received\":0,\"delivery\":0,\"balance\":0},{\"productID\":4,\"productName\":\"Tea - English Breakfast\",\"received\":0,\"delivery\":0,\"balance\":0},{\"productID\":5,\"productName\":\"Peach - Halves\",\"received\":0,\"delivery\":0,\"balance\":0}]}";      String content = mvcResult.getResponse().getContentAsString();
         assertEquals(expected, content);
     }
     @Test
@@ -45,7 +45,7 @@ public class StorageControllerTest extends AbstractTest {
                 .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
         int status = mvcResult.getResponse().getStatus();
         assertEquals(200, status);
-        String expected = "{\"startDate\":\"2021-05-24\",\"endDate\":\"2021-05-25\",\"inventoryList\":[{\"productID\":1,\"productName\":\"Vitamin E\",\"received\":4,\"delivery\":0,\"balance\":4},{\"productID\":2,\"productName\":\"Longos - Chicken Wings\",\"received\":4,\"delivery\":2,\"balance\":2},{\"productID\":3,\"productName\":\"Spinach - Frozen\",\"received\":0,\"delivery\":0,\"balance\":0},{\"productID\":4,\"productName\":\"Tea - English Breakfast\",\"received\":0,\"delivery\":0,\"balance\":0},{\"productID\":5,\"productName\":\"Peach - Halves\",\"received\":0,\"delivery\":0,\"balance\":0}]}";
+        String expected = "{\"startDate\":\"2021-05-24\",\"endDate\":\"2021-05-25\",\"inventoryList\":[{\"productID\":1,\"productName\":\"Vitamin E\",\"received\":4,\"delivery\":4,\"balance\":0},{\"productID\":2,\"productName\":\"Longos - Chicken Wings\",\"received\":4,\"delivery\":4,\"balance\":0},{\"productID\":3,\"productName\":\"Spinach - Frozen\",\"received\":0,\"delivery\":0,\"balance\":0},{\"productID\":4,\"productName\":\"Tea - English Breakfast\",\"received\":0,\"delivery\":0,\"balance\":0},{\"productID\":5,\"productName\":\"Peach - Halves\",\"received\":0,\"delivery\":0,\"balance\":0}]}";
         String content = mvcResult.getResponse().getContentAsString();
         assertEquals(expected, content);
     }

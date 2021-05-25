@@ -62,7 +62,7 @@ public class SaleInvoiceControllerTest extends AbstractTest {
     @Test
     public void add() throws Exception {
         String uri = "/sale";
-        String inputJson = "{\"date\":\"2021-04-30\",\"staffID\":1,\"deliveryID\":1,\"customerID\":1,\"staffName\":\"Jane\",\"customerName\":\"Diago Trade\",\"saleDetails\":[{\"product\":{\"id\":2,\"name\":\"Longos - Chicken Wings\",\"model\":\"YWO2\",\"brand\":\"Ropinirole Hydrochloride\",\"company\":\"Hauck Inc\",\"category\":{\"id\":2,\"name\":\"Food\"},\"description\":\"In congue. Etiam justo. Etiam pretium iaculis justo.\",\"price\":96.35},\"quantity\":2,\"price\":96.35,\"totalValue\":192.7}]}";
+        String inputJson = "{\"date\":\"2021-04-30\",\"staffID\":1,\"deliveryID\":1,\"customerID\":1}";
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON_VALUE).content(inputJson)).andReturn();
 
@@ -71,7 +71,7 @@ public class SaleInvoiceControllerTest extends AbstractTest {
         uri = "/sale/3";
         mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
                 .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
-        String expected = "{\"id\":3,\"date\":\"2021-04-30\",\"staffID\":1,\"deliveryID\":1,\"customerID\":1,\"staffName\":\"Jane\",\"customerName\":\"Diago Trade\",\"saleDetails\":[{\"product\":{\"id\":2,\"name\":\"Longos - Chicken Wings\",\"model\":\"YWO2\",\"brand\":\"Ropinirole Hydrochloride\",\"company\":\"Hauck Inc\",\"category\":{\"id\":2,\"name\":\"Food\"},\"description\":\"In congue. Etiam justo. Etiam pretium iaculis justo.\",\"price\":96.35},\"quantity\":2,\"price\":96.35,\"totalValue\":192.7}]}";
+        String expected = "{\"id\":3,\"date\":\"2021-04-30\",\"staffID\":1,\"deliveryID\":1,\"customerID\":1,\"staffName\":\"Jane\",\"customerName\":\"Diago Trade\",\"saleDetails\":[{\"product\":{\"id\":1,\"name\":\"Vitamin E\",\"model\":\"12HAC\",\"brand\":\"Daily's\",\"company\":\"DonyJ Corp\",\"category\":{\"id\":1,\"name\":\"Medicine\"},\"description\":\"Vitamin E for daily use\",\"price\":10.99},\"quantity\":4,\"price\":10.99,\"totalValue\":43.96},{\"product\":{\"id\":2,\"name\":\"Longos - Chicken Wings\",\"model\":\"YWO2\",\"brand\":\"Ropinirole Hydrochloride\",\"company\":\"Hauck Inc\",\"category\":{\"id\":2,\"name\":\"Food\"},\"description\":\"In congue. Etiam justo. Etiam pretium iaculis justo.\",\"price\":96.35},\"quantity\":2,\"price\":96.35,\"totalValue\":192.7}]}";
         String content = mvcResult.getResponse().getContentAsString();
         assertEquals(expected,content);
     }
