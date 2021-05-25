@@ -108,6 +108,12 @@ public class SaleInvoiceService {
         if (customerID != null && staffID != null) {
             return saleInvoiceRepository.getSaleInvoiceByCustomerIDAndStaffIDAndDateBetween(customerID, staffID, start, end, pageable);
         }
+        if (customerID != null) {
+            return saleInvoiceRepository.getSaleInvoiceByCustomerIDAndDateBetween(customerID, start, end, pageable);
+        }
+        if (staffID != null) {
+            return saleInvoiceRepository.getSaleInvoiceByStaffIDAndDateBetween(staffID, start, end, pageable);
+        }
         return saleInvoiceRepository.findByDateBetween(start,end,pageable);
 
     }

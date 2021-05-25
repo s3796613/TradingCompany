@@ -48,7 +48,10 @@ public class StorageService {
     public Storage getInventoryByDate(String startDate, String endDate) {
         Storage storage = new Storage();
         storage.setStartDate(LocalDate.parse(startDate));
-        storage.setEndDate(LocalDate.parse(endDate));
+        if(endDate !=null){
+            storage.setEndDate(LocalDate.parse(endDate));
+        }else{storage.setEndDate(LocalDate.now());}
+
         List<Product> productList = productRepository.findAll();
         List<Inventory> inventoryList = new ArrayList<>();
         for (Product product: productList) {

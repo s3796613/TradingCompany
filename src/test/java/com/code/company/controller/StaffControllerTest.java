@@ -60,8 +60,23 @@ public class StaffControllerTest extends AbstractTest {
                 .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
 
         status = mvcResult.getResponse().getStatus();
+    }
+    @Test
+    public void deleteStaffWithDependencies() throws Exception {
+        String uri = "/staff/2";
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.delete(uri)
+                .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals(200, status);
+
+        uri = "/staff/2";
+        mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+
         String content = mvcResult.getResponse().getContentAsString();
-        assertEquals("",content);
+        Staff staff = super.mapFromJson(content, Staff.class);
+        assertEquals("Jack",staff.getName());
     }
 
     @Test

@@ -25,7 +25,7 @@ public class StorageController {
 
 
     @GetMapping(path = "find")
-    public Storage getInventoryByDate(@RequestParam(required = false) String start,
+    public Storage getInventoryByDate(@RequestParam String start,
                                       @RequestParam(required = false) String end) {
         return storageService.getInventoryByDate(start,end);
     }

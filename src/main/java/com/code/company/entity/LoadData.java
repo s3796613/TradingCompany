@@ -19,7 +19,8 @@ public class LoadData {
                                          CategoryRepository categoryRepository,
                                          CustomerRepository customerRepository,
                                          DeliveryRepository deliveryRepository,
-                                         ReceivingRepository receivingRepository) {
+                                         ReceivingRepository receivingRepository,
+                                         SaleInvoiceRepository saleInvoiceRepository) {
         return args -> {
             //Load customer
             Customer c1 = new Customer("Diago Trade", "30 Silk Road", "diagotrade@gmail.com", "0937421321", "123341245", "ThangNe");
@@ -122,6 +123,23 @@ public class LoadData {
             DeliveryNote d2 = new DeliveryNote(date, s2);
             d2.setPackageDetails(packageDetailList2);
             deliveryRepository.saveAll(List.of(d1,d2));
+
+            //Load Sale Invoices
+            SaleDetail sd1 = new SaleDetail(product1, 4);
+            SaleDetail sd2= new SaleDetail(product2,2);
+            List<SaleDetail> saleDetailList1 = new ArrayList<>();
+            saleDetailList1.add(sd1);
+            saleDetailList1.add(sd2);
+            List<SaleDetail> saleDetailList2 = new ArrayList<>();
+            saleDetailList2.add(sd2);
+
+            SaleInvoice si1= new SaleInvoice(date,1L,1L,1L,"Jane","Diago Trade");
+            si1.setSaleDetails(saleDetailList1);
+
+            SaleInvoice si2= new SaleInvoice(date,2L,2L,2L,"Jack","Jack's Whole Sale" );
+            si2.setSaleDetails(saleDetailList2);
+
+            saleInvoiceRepository.saveAll(List.of(si1,si2));
 
 
         };

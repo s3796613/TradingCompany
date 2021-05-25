@@ -46,12 +46,7 @@ public class SaleInvoiceController {
         saleInvoiceService.delete(id);
     }
 
-//    @GetMapping(path = "find")
-//    public Page<SaleInvoice> find(@RequestParam("start") String start,
-//                                  @RequestParam("end") String end,
-//                                  Pageable pageable) {
-//        return saleInvoiceService.find(start,end,pageable);
-//    }
+
     @GetMapping(path = "find")
     public Page<SaleInvoice> find(@RequestParam(required = false) Long customerID,
                                   @RequestParam(required = false) Long staffID,
