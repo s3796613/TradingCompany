@@ -3,6 +3,7 @@ package com.code.company.service;
 import com.code.company.JPA.CustomerRepository;
 import com.code.company.JPA.SaleInvoiceRepository;
 import com.code.company.JPA.StaffRepository;
+import com.code.company.controller.exception.NotFound;
 import com.code.company.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,7 @@ public class RevenueService {
 
 
     public Revenue getCustomerRevenue(Long id, String start, String end) throws Exception {
-        Customer customer = customerRepository.findById(id).orElseThrow(() -> new Exception("Customer id not found"));
+        Customer customer = customerRepository.findById(id).orElseThrow(() -> new NotFound("Customer id not found"));
         Revenue revenue = new Revenue();
         revenue.setName(customer.getName());
         revenue.setStartDate(LocalDate.parse(start));
@@ -36,7 +37,7 @@ public class RevenueService {
     }
 
     public Revenue getStaffRevenue(Long id, String start, String end) throws Exception {
-        Staff staff = staffRepository.findById(id).orElseThrow(() -> new Exception("Staff id not found"));
+        Staff staff = staffRepository.findById(id).orElseThrow(() -> new NotFound("Staff id not found"));
         Revenue revenue = new Revenue();
         revenue.setName(staff.getName());
         revenue.setStartDate(LocalDate.parse(start));
