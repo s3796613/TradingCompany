@@ -11,6 +11,13 @@ public class Revenue {
     public Revenue() {
     }
 
+    public Revenue(String name, LocalDate startDate, LocalDate endDate, double revenue) {
+        this.name = name;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.revenue = revenue;
+    }
+
     public LocalDate getStartDate() {
         return startDate;
     }

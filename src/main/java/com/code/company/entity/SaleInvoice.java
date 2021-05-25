@@ -38,6 +38,15 @@ public class SaleInvoice{
         this.saleDetails = saleDetails;
     }
 
+    public SaleInvoice(LocalDate date, Long staffID, Long deliveryID, Long customerID, String staffName, String customerName) {
+        this.date = date;
+        this.staffID = staffID;
+        this.deliveryID = deliveryID;
+        this.customerID = customerID;
+        this.staffName = staffName;
+        this.customerName = customerName;
+    }
+
     public Long getId() {
         return id;
     }

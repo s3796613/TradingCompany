@@ -47,7 +47,36 @@ public class CustomerControllerTest extends AbstractTest {
     }
 
     @Test
-    public void deleteById() {
+    public void deleteById() throws Exception {
+        String uri = "/customer/3";
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.delete(uri)
+                .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals(200, status);
+
+        uri = "/customer/3";
+        mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+        String content = mvcResult.getResponse().getContentAsString();
+        assertEquals("{\"status\":\"Bad request\",\"error\":\"Did not find any customer with the id: 3\",\"statusCode\":404}",content);
+    }
+    @Test
+    public void deleteCustomerWithDependencies() throws Exception {
+        String uri = "/customer/1";
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.delete(uri)
+                .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals(200, status);
+
+        uri = "/customer/1";
+        mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+
+        String content = mvcResult.getResponse().getContentAsString();
+        Customer customer = super.mapFromJson(content, Customer.class);
+        assertEquals("Diago Trade",customer.getName());
     }
 
     @Test
