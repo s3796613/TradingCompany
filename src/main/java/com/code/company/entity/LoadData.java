@@ -120,7 +120,7 @@ public class LoadData {
             DeliveryNote d1 = new DeliveryNote(date, s1);
             d1.setPackageDetails(packageDetailList);
             DeliveryNote d2 = new DeliveryNote(date, s2);
-            d1.setPackageDetails(packageDetailList2);
+            d2.setPackageDetails(packageDetailList2);
             deliveryRepository.saveAll(List.of(d1,d2));
 
 

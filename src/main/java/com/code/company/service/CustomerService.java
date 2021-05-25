@@ -53,7 +53,7 @@ public class CustomerService {
 
     @Transactional
     public void update(Long id, String name, String address, String email, String phone, String fax, String contactPerson) throws Exception {
-        Customer customer = repository.findById(id).orElseThrow(() -> new Exception("Customer id not found"));
+        Customer customer = repository.findById(id).orElseThrow(() -> new NotFound("Customer id not found"));
         if (name != null && name.length() > 0) {
             customer.setName(name);
         }

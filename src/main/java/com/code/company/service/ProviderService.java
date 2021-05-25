@@ -27,7 +27,7 @@ public class ProviderService {
     }
 
     public Provider findById(Long id) {
-        return providerRepository.findProviderById(id);
+        return providerRepository.findById(id).orElseThrow(() -> new NotFound("Provider id not found"));
     }
 
     public void add(Provider provider) {

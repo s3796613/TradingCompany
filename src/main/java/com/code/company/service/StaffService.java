@@ -61,7 +61,7 @@ public class StaffService {
 
     @Transactional
     public void update(Long id, String name, String address, String email, String phone) throws Exception {
-        Staff staff = staffRepository.findById(id).orElseThrow(() -> new Exception("Staff id not found"));
+        Staff staff = staffRepository.findById(id).orElseThrow(() -> new NotFound("Staff id not found"));
         if (name != null && name.length() > 0) {
             staff.setName(name);
         }
@@ -107,7 +107,7 @@ public class StaffService {
             }
         }
         if (filtered.isEmpty()) {
-            throw new NoResult("No sale found between" + startDate + " - " + endDate);
+            throw new NoResult("No sale found between " + startDate + " - " + endDate);
         }
         return new PageImpl<>(filtered,pageable,filtered.size());
     }

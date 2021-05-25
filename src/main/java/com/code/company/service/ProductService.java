@@ -26,7 +26,7 @@ public class ProductService {
     public Product findById(Long id) {
         Product product = productRepository.findProductById(id);
         if (product == null) {
-            throw new NotFound();
+            throw new NotFound("Product id not found");
         }
         return product;
     }
