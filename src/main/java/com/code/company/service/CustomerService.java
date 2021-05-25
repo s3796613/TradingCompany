@@ -5,6 +5,7 @@ import com.code.company.controller.exception.NoResult;
 import com.code.company.controller.exception.NotFound;
 import com.code.company.entity.Customer;
 import com.code.company.entity.SaleInvoice;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -43,7 +44,10 @@ public class CustomerService {
     }
 
     public void deleteById(Long id) {
-        repository.deleteById(id);
+        if (repository.getSaleInvoice(id).isEmpty()) {
+            repository.deleteById(id);
+        }
+        throw new NotFound("This customer have some invoice in the database");
     }
 
     public void add(Customer customer) {
